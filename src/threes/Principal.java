@@ -1,4 +1,4 @@
-package Threes;
+package threes;
 
 import javax.swing.UIManager;
 import gui.PantallaInicial;

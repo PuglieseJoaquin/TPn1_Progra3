@@ -33,10 +33,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import logica.Ficha;
+import logica.Juego;
+import logica.Tablero;
+
 public class PantallaJuego extends JFrame {
 
     private JPanel panelFondo;
     private JPanel panelJuego;
+    private JLabel[] cuadrados;
+    private Juego juego;
 
     public PantallaJuego(String nombre, int tamañoMatriz, int dimensionVentana, String nivel) {
 		setTitle("Programación three...s");
@@ -44,14 +50,34 @@ public class PantallaJuego extends JFrame {
 		setBounds(100, 100, 650, 400);
 		setLocationRelativeTo(null);
 		panelFondo = new JPanel();
+		
+		panelFondo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int evento = e.getKeyCode();
+				juego.mover(evento);
+				actualizarVista();
+				if (juego.isGameOver()) {
+		     //aca va el llamado a la pantalla final con los nombres y puntajes
+				}
+			}
+		});
+		
+		
 		setContentPane(panelFondo);
 		panelFondo.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelJuego = new JPanel();
+		panelFondo.setFocusable(true);
+		panelFondo.requestFocusInWindow();
+		
+		panelJuego = new JPanel();
 		panelJuego.setPreferredSize(new Dimension(200, 0));
 		panelJuego.setBackground(new Color(60, 179, 113));
 		panelFondo.add(panelJuego, BorderLayout.EAST);
 		panelJuego.setLayout(null);
+		
+		//inicio logica
+		this.juego = new Juego(tamañoMatriz);
 		
 		JLabel lblNewLabel = new JLabel("Buena Suerte!!!");
 		lblNewLabel.setBackground(new Color(102, 205, 170));
@@ -74,21 +100,21 @@ public class PantallaJuego extends JFrame {
 		lblJugadaSugerida.setBounds(10, 179, 180, 45);
 		panelJuego.add(lblJugadaSugerida);
 		
-		JLabel lblProximaFicha_1 = new JLabel("Proxima Ficha");
+		JLabel lblProximaFicha_1 = new JLabel("ficha futura");
 		lblProximaFicha_1.setForeground(new Color(178, 34, 34));
 		lblProximaFicha_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblProximaFicha_1.setBackground(new Color(102, 205, 170));
 		lblProximaFicha_1.setBounds(53, 134, 80, 45);
 		panelJuego.add(lblProximaFicha_1);
 		
-		JLabel lblProximaFicha_2 = new JLabel("Proxima Ficha");
+		JLabel lblProximaFicha_2 = new JLabel("sugerencia");
 		lblProximaFicha_2.setForeground(new Color(178, 34, 34));
 		lblProximaFicha_2.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblProximaFicha_2.setBackground(new Color(102, 205, 170));
 		lblProximaFicha_2.setBounds(59, 221, 74, 45);
 		panelJuego.add(lblProximaFicha_2);
 		
-		JLabel lblProximaFicha_1_1 = new JLabel("Proxima Ficha");
+		JLabel lblProximaFicha_1_1 = new JLabel("nombreUsuario");
 		lblProximaFicha_1_1.setForeground(new Color(178, 34, 34));
 		lblProximaFicha_1_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblProximaFicha_1_1.setBackground(new Color(102, 205, 170));
@@ -104,19 +130,47 @@ public class PantallaJuego extends JFrame {
 		
 		JPanel panelMatriz = new JPanel();
 		panelFondo.add(panelMatriz, BorderLayout.CENTER);
-		panelMatriz.setLayout(new GridLayout(4, 4, 10, 10));
+		panelMatriz.setLayout(new GridLayout(tamañoMatriz, tamañoMatriz, 10, 10));
 		panelMatriz.setBackground(new Color(0, 128, 128));
 
 		// Agrego los cuadrados
-		for (int i = 0; i < tamañoMatriz * tamañoMatriz; i++) {
+		int matrizTotal = tamañoMatriz * tamañoMatriz;
+		
+		cuadrados = new JLabel[matrizTotal];
+		for (int i = 0; i < matrizTotal; i++) {
 		    JLabel cuadrado = new JLabel();
 		    cuadrado.setHorizontalAlignment(SwingConstants.CENTER);
 		    cuadrado.setFont(new Font("Tahoma", Font.BOLD, 25));
 		    cuadrado.setOpaque(true);
 		    cuadrado.setBackground(Color.GREEN);
 		    cuadrado.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		    
+		    cuadrados[i] = cuadrado;
 		    panelMatriz.add(cuadrado);
 		}
-		
+		actualizarVista();
     }
+
+	private void actualizarVista() {
+		Tablero tablero = juego.getTablero();
+		int tamaño = tablero.getTamaño();
+		
+	    for (int fila = 0; fila < tamaño; fila++) {
+	        for (int col = 0; col < tamaño; col++) {
+	            Ficha f = tablero.getFicha(fila, col);
+	            int index = fila * tamaño + col;
+
+	            if (f == null) {
+	            	cuadrados[index].setText("");
+	            	cuadrados[index].setBackground(Color.LIGHT_GRAY);
+	            } else {
+	            	cuadrados[index].setText(String.valueOf(f.getValor()));
+	            	cuadrados[index].setBackground(Color.GREEN);
+	            }
+	        }
+	    }
+	}
 }
+		
+
+

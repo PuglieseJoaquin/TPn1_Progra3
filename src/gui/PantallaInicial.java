@@ -81,7 +81,7 @@ public class PantallaInicial extends JFrame{
 		comboBoxLevels.setMinimumSize(new Dimension(100, 100));
 		comboBoxLevels.setPreferredSize(new Dimension(120, 120));
 		comboBoxLevels
-				.setModel(new DefaultComboBoxModel<String>(new String[] { "Clásico 4x4", "Extra 5x5"}));
+				.setModel(new DefaultComboBoxModel<String>(new String[] { "Clásico 4x4", "Extra 5x5", "Supremo 6x6"}));
 		comboBoxLevels.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		comboBoxLevels.setBounds(351, 162, 138, 40);
 		panelFondo.add(comboBoxLevels);
@@ -113,6 +113,11 @@ public class PantallaInicial extends JFrame{
 						PantallaJuego extra = new PantallaJuego(textNombre.getText(), 5, 750, "Extra");
 						extra.setResizable(false);
 						extra.setVisible(true);
+						break;
+					case "Supremo 6x6":
+						PantallaJuego supremo = new PantallaJuego(textNombre.getText(), 6, 750, "Supremo");
+						supremo.setResizable(false);
+						supremo.setVisible(true);
 						break;
 					default:
 						break;

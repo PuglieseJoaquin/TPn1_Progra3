@@ -1,4 +1,4 @@
-package Logica;
+package logica;
 
 public class Ficha {
 	
@@ -7,8 +7,12 @@ public class Ficha {
     public Ficha(int valor) {
         this.valor = valor;
     }
+    
+    public void setValor(int valor) {
+		this.valor = valor;
+	}
 
-    public int getValor() {
+	public int getValor() {
         return valor;
     }
 
@@ -23,5 +27,4 @@ public class Ficha {
     public Ficha fusionarCon(Ficha otra) {
         return new Ficha(this.valor + otra.valor);
     }
-
 }
