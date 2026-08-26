@@ -15,6 +15,10 @@ public class TableroTest {
         t.setCelda(0, 1, 1);
         t.setCelda(0, 2, 3);
         t.setCelda(0, 3, 3);
+        t.setCelda(2, 2, 1);
+        t.setCelda(2, 3, 2);
+        t.setCelda(3, 1, 3);
+        t.setCelda(3, 3, 3);
         
 
         System.out.println("Antes:");
@@ -66,6 +70,9 @@ public class TableroTest {
         t.imprimir();
         t.mover("ARRIBA");
         System.out.println("Después:");
+        t.imprimir();
+        t.mover("ARRIBA");
+        System.out.println("Despuésx2:");
         t.imprimir();
     }
 

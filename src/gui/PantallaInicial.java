@@ -30,6 +30,7 @@ public class PantallaInicial extends JFrame{
 		setTitle("Programación three...s");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
+		setLocationRelativeTo(null);
 		panelFondo = new JPanel();
 		panelFondo.setBackground(new Color(30, 144, 255));
 		setContentPane(panelFondo);
@@ -67,11 +68,11 @@ public class PantallaInicial extends JFrame{
 		textNombre.setBounds(34, 163, 199, 40);
 		panelFondo.add(textNombre);
 
-		JLabel lblLevel = new JLabel("ELEGIR NIVEL");
-		lblLevel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLevel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblLevel.setBounds(341, 134, 143, 25);
-		panelFondo.add(lblLevel);
+		JLabel lblNivel = new JLabel("ELEGIR NIVEL");
+		lblNivel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNivel.setBounds(341, 134, 143, 25);
+		panelFondo.add(lblNivel);
 
 		// box de niveles
 		JComboBox<String> comboBoxLevels = new JComboBox<String>();
