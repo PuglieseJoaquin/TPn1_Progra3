@@ -296,27 +296,7 @@ public class Tablero {
 	}
 
 	public boolean hayMovimientosPosibles() {
-		for (int fila = 0; fila < tamaño; fila++) {
-			for (int col = 0; col < tamaño; col++) {
-				Ficha actual = fichas[fila][col];
-				if (actual == null)
-					continue;
-
-				if (col < tamaño - 1) {
-					Ficha derecha = fichas[fila][col + 1];
-					if (derecha != null && actual.puedeFusionarseCon(derecha)) {
-						return true;
-					}
-				}
-
-				if (fila < tamaño - 1) {
-					Ficha abajo = fichas[fila + 1][col];
-					if (abajo != null && actual.puedeFusionarseCon(abajo)) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+		return hayMovimientoALaDerecha() || hayMovimientoALaIzquierda() ||
+				hayMovimientoHaciaArriba() || hayMovimientoHaciaAbajo();
 	}
 }
