@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -43,8 +44,11 @@ public class PantallaJuego extends JFrame {
     private JPanel panelJuego;
     private JLabel[] cuadrados;
     private Juego juego;
+   
+   
 
     public PantallaJuego(String nombre, int tamañoMatriz, int dimensionVentana, String nivel) {
+    	
 		setTitle("Programación three...s");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
@@ -58,7 +62,8 @@ public class PantallaJuego extends JFrame {
 				juego.mover(evento);
 				actualizarVista();
 				if (juego.isGameOver()) {
-		     //aca va el llamado a la pantalla final con los nombres y puntajes
+					new PantallaPerdiste(nombre, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
+				    dispose();
 				}
 			}
 		});

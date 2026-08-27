@@ -33,7 +33,7 @@ public class Juego {
                     break;
             }
         } else {
-        	System.out.println("PERDISTE");
+        	
             gameOver = true;
         }
     }
@@ -43,10 +43,36 @@ public class Juego {
     }
 
     public int getPuntaje() {
-        return puntaje;
+    	int cont = 0;
+    	Tablero t=this.tablero;
+	    for (int fila = 0; fila < t.getTamaño(); fila++) {
+	        for (int col = 0; col < t.getTamaño(); col++) {
+	            Ficha f = t.getFicha(fila, col);
+	            if (f != null) {
+	            	cont += puntajeDeFicha(f.getValor());
+	            }
+	        }
+	    }
+	    return cont;
+	}
+    
+
+    private int puntajeDeFicha(int valor) {
+        if (valor == 1 || valor == 2) {
+            return 0;
+        }
+        
+        int puntajeAcumulado = 3;
+        int fichaSimulada = 3;
+        
+        while (fichaSimulada < valor) {
+            fichaSimulada = fichaSimulada * 2;
+            puntajeAcumulado = puntajeAcumulado * 3;
+        }
+        return puntajeAcumulado;
     }
 
-    public boolean isGameOver() {
+	public boolean isGameOver() {
         return gameOver;
     }
 }
