@@ -14,8 +14,10 @@ public class Juego {
     }
 
     public void mover(int codigoTecla) {
-
-        if (!gameOver && !tablero.estaCompleto() && tablero.hayMovimientosPosibles()) {
+    	
+        if (!gameOver && (!tablero.estaCompleto() || tablero.hayMovimientosPosibles())) {
+        	System.out.println(tablero.getContadorFichas());
+        	System.out.println(tablero.hayMovimientosPosibles());
             switch (codigoTecla) {
                 case KeyEvent.VK_RIGHT:
                     tablero.moverDerecha();
@@ -31,6 +33,7 @@ public class Juego {
                     break;
             }
         } else {
+        	System.out.println("PERDISTE");
             gameOver = true;
         }
     }
