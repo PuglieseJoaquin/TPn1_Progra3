@@ -156,7 +156,7 @@ public class PantallaJuego extends JFrame {
 		actualizarVista();
     }
 
-	private void actualizarVista() {
+    private void actualizarVista() {
 		Tablero tablero = juego.getTablero();
 		int tamaño = tablero.getTamaño();
 		
@@ -167,12 +167,28 @@ public class PantallaJuego extends JFrame {
 
 	            if (f == null) {
 	            	cuadrados[index].setText("");
-	            	cuadrados[index].setBackground(Color.LIGHT_GRAY);
+	            	cuadrados[index].setBackground(Color.white);
 	            } else {
 	            	cuadrados[index].setText(String.valueOf(f.getValor()));
-	            	cuadrados[index].setBackground(Color.GREEN);
+	            	cuadrados[index].setBackground(colorParaValor(f.getValor()));
 	            }
 	        }
+	    }
+	}
+	
+	private Color colorParaValor(int valor) {
+	    switch (valor) {
+	        case 3: return Color.BLUE;
+	        case 6: return Color.RED;
+	        case 12: return Color.ORANGE;
+	        case 24: return Color.magenta;
+	        case 48: return Color.CYAN;
+	        case 96: return Color.GREEN;
+	        case 192: return Color.PINK;
+	        case 384: return Color.yellow;
+	        case 768: return Color.orange;
+	        case 1536: return Color.blue;
+	        default: return Color.GRAY;
 	    }
 	}
 }
