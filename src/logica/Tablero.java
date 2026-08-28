@@ -17,6 +17,8 @@ public class Tablero {
 	private int contadorFichas;
 	private int proximoValorFicha;
 
+	private int valorMaximo;
+
 	public Tablero(int tamañoMatriz) {
 		this.tamaño = tamañoMatriz;
 		this.fichas = new Ficha[tamañoMatriz][tamañoMatriz];
@@ -347,17 +349,23 @@ public class Tablero {
 				hayMovimientoHaciaArriba() || hayMovimientoHaciaAbajo();
 	}
 
-    public int calcularPuntaje() {
-    	int cont = 0;
-    	
+	public int calcularPuntaje() {
+	    int cont = 0;
+	    int max = 0;
+
 	    for (int fila = 0; fila < tamaño; fila++) {
 	        for (int col = 0; col < tamaño; col++) {
 	            Ficha f = fichas[fila][col];
-	            if (f != null && f.getValor()!=1 && f.getValor()!=2) {
-	            	cont += puntajeDeFicha(f.getValor());
+	            if (f != null && f.getValor() != 1 && f.getValor() != 2) {
+	                cont += puntajeDeFicha(f.getValor());
+
+	                if (f.getValor() > max) {
+	                    max = f.getValor();
+	                }
 	            }
 	        }
 	    }
+	    this.valorMaximo = max;
 	    return cont;
 	}
     
@@ -387,4 +395,9 @@ public class Tablero {
     		return "Error 404 :P";
     	}
     }
+    
+    public int getValorMaximo() {
+    	return valorMaximo;
+    }
+   
 }

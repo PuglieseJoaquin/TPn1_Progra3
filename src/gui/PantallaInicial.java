@@ -27,7 +27,7 @@ public class PantallaInicial extends JFrame{
 	private JTextField textNombre;
 	
 	public PantallaInicial() {
-		setTitle("Programación three...s");
+		setTitle("Programación - Threes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		setLocationRelativeTo(null);
@@ -124,6 +124,9 @@ public class PantallaInicial extends JFrame{
 					}
 				}
 			}
+			
+		
+			
 			//validacion nombre
 			private boolean validateName(String text) {
 				if (text.length() < 3 || text.isEmpty()) {
@@ -132,10 +135,26 @@ public class PantallaInicial extends JFrame{
 				return true;
 			}
 		});
+		
+		JButton btnRanking = new JButton("Ranking");
+		btnRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaRanking ranking= new PantallaRanking();
+				ranking.setVisible(true);
+				dispose();
+			}
+		});
+		btnRanking.setForeground(new Color(34, 139, 34));
+		btnRanking.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnRanking.setBackground(Color.LIGHT_GRAY);
+		btnRanking.setBounds(202, 297, 177, 40);
+		panelFondo.add(btnRanking);
+		
 		btnStart.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnStart.setBackground(new Color(192, 192, 192));
-		btnStart.setBounds(210, 244, 177, 40);
+		btnStart.setBounds(202, 246, 177, 40);
 		panelFondo.add(btnStart);
+		
+		
 	}
-
 }

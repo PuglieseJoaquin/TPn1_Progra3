@@ -6,7 +6,7 @@ import javax.swing.*;
 	public class PantallaPerdiste extends JFrame {
 
 	    public PantallaPerdiste(String nombre, int puntaje, int tamañoMatriz, int dimensionVentana, String nivel) {
-	        setTitle("Game Over");
+	        setTitle("Game Over - Threes");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setBounds(100, 100, 400, 300);
 	        setLocationRelativeTo(null);

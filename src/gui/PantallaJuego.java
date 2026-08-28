@@ -51,7 +51,7 @@ public class PantallaJuego extends JFrame {
 
     public PantallaJuego(String nombreJugador, int tamañoMatriz, int dimensionVentana, String nivel) {
     	
-		setTitle("Programación three...s");
+		setTitle("Juego - Threes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		setLocationRelativeTo(null);
@@ -84,6 +84,8 @@ public class PantallaJuego extends JFrame {
 		
 		//inicio logica
 		this.juego = new Juego(tamañoMatriz, nombreJugador);
+		//capturo nivel
+		this.juego.getJugadorActual().setNivel(nivel);
 		
 		JLabel lblSuerte = new JLabel("Buena Suerte!!!");
 		lblSuerte.setBackground(new Color(102, 205, 170));
