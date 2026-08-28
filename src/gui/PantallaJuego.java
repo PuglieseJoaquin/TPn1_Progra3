@@ -44,6 +44,8 @@ public class PantallaJuego extends JFrame {
     private JPanel panelJuego;
     private JLabel[] cuadrados;
     private Juego juego;
+    private JLabel lblProximaFichaValor;
+    private JLabel lblMovimientoSugerido;
    
    
 
@@ -55,19 +57,18 @@ public class PantallaJuego extends JFrame {
 		setLocationRelativeTo(null);
 		panelFondo = new JPanel();
 		
-		panelFondo.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				int evento = e.getKeyCode();
-				juego.mover(evento);
-				actualizarVista();
-				if (juego.isGameOver()) {
-					new PantallaPerdiste(nombre, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
-				    dispose();
-				}
-			}
-		});
-		
+//		panelFondo.addKeyListener(new KeyAdapter() {
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				int evento = e.getKeyCode();
+//				juego.mover(evento);
+//				actualizarVista();
+//				if (juego.isGameOver()) {
+//					new PantallaPerdiste(nombre, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
+//				    dispose();
+//				}
+//			}
+//		});
 		
 		setContentPane(panelFondo);
 		panelFondo.setLayout(new BorderLayout(0, 0));
@@ -105,19 +106,27 @@ public class PantallaJuego extends JFrame {
 		lblJugadaSugerida.setBounds(10, 179, 180, 45);
 		panelJuego.add(lblJugadaSugerida);
 		
-		JLabel lblProximaFicha_1 = new JLabel("ficha futura");
-		lblProximaFicha_1.setForeground(new Color(178, 34, 34));
-		lblProximaFicha_1.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblProximaFicha_1.setBackground(new Color(102, 205, 170));
-		lblProximaFicha_1.setBounds(53, 134, 80, 45);
-		panelJuego.add(lblProximaFicha_1);
+		lblProximaFichaValor = new JLabel("ficha futura");
+//		lblProximaFichaValor.setText(String.valueOf(juego.getTablero().getProximoValorFicha()));
+		lblProximaFichaValor.setForeground(Color.BLACK);
+		lblProximaFichaValor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProximaFichaValor.setVerticalAlignment(SwingConstants.CENTER);
+		lblProximaFichaValor.setOpaque(true);
+		lblProximaFichaValor.setFont(new Font("Verdana", Font.BOLD, 18));
+//		lblProximaFichaValor.setBackground(colorParaValor(juego.getTablero().getProximoValorFicha()));
+		lblProximaFichaValor.setBounds(53, 134, 80, 45);
+		panelJuego.add(lblProximaFichaValor);
 		
-		JLabel lblProximaFicha_2 = new JLabel("sugerencia");
-		lblProximaFicha_2.setForeground(new Color(178, 34, 34));
-		lblProximaFicha_2.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblProximaFicha_2.setBackground(new Color(102, 205, 170));
-		lblProximaFicha_2.setBounds(59, 221, 74, 45);
-		panelJuego.add(lblProximaFicha_2);
+		lblMovimientoSugerido = new JLabel("sugerencia");
+		lblMovimientoSugerido.setForeground(Color.BLACK);
+		lblMovimientoSugerido.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblMovimientoSugerido.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMovimientoSugerido.setVerticalAlignment(SwingConstants.CENTER);
+		lblMovimientoSugerido.setOpaque(true);
+		lblMovimientoSugerido.setBackground(new Color(102, 205, 170));
+		lblMovimientoSugerido.setText(juego.getMovimientoSugerido());
+		lblMovimientoSugerido.setBounds(40, 221, 125, 45);
+		panelJuego.add(lblMovimientoSugerido);
 		
 		JLabel lblProximaFicha_1_1 = new JLabel("nombreUsuario");
 		lblProximaFicha_1_1.setForeground(new Color(178, 34, 34));
@@ -137,6 +146,19 @@ public class PantallaJuego extends JFrame {
 		panelFondo.add(panelMatriz, BorderLayout.CENTER);
 		panelMatriz.setLayout(new GridLayout(tamañoMatriz, tamañoMatriz, 10, 10));
 		panelMatriz.setBackground(new Color(0, 128, 128));
+		
+		panelFondo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int evento = e.getKeyCode();
+				juego.mover(evento);
+				actualizarVista();
+				if (juego.isGameOver()) {
+					new PantallaPerdiste(nombre, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
+				    dispose();
+				}
+			}
+		});
 
 		// Agrego los cuadrados
 		int matrizTotal = tamañoMatriz * tamañoMatriz;
@@ -174,6 +196,10 @@ public class PantallaJuego extends JFrame {
 	            }
 	        }
 	    }
+		lblProximaFichaValor.setText(String.valueOf(juego.getTablero().getProximoValorFicha()));
+		lblProximaFichaValor.setBackground(colorParaValor(juego.getTablero().getProximoValorFicha()));
+		
+		lblMovimientoSugerido.setText(juego.getMovimientoSugerido());
 	}
 	
 	private Color colorParaValor(int valor) {

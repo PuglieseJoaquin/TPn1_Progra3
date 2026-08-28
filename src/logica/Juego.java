@@ -6,13 +6,23 @@ public class Juego {
     private Tablero tablero;
     private int puntaje;
     private boolean gameOver;
+//    private boolean huboColision;
 
     public Juego(int tamañoMatriz) {
         this.tablero = new Tablero(tamañoMatriz);
         this.puntaje = 0;
         this.gameOver = false;
+//        this.huboColision = false;
     }
-
+    
+	public boolean isGameOver() {
+        return gameOver;
+    }
+	
+//	public boolean getHuboColision() {
+//		return this.huboColision;
+//	}
+	
     public void mover(int codigoTecla) {
     	
         if (!gameOver && (!tablero.estaCompleto() || tablero.hayMovimientosPosibles())) {
@@ -33,7 +43,6 @@ public class Juego {
                     break;
             }
         } else {
-        	
             gameOver = true;
         }
     }
@@ -43,36 +52,11 @@ public class Juego {
     }
 
     public int getPuntaje() {
-    	int cont = 0;
-    	Tablero t=this.tablero;
-	    for (int fila = 0; fila < t.getTamaño(); fila++) {
-	        for (int col = 0; col < t.getTamaño(); col++) {
-	            Ficha f = t.getFicha(fila, col);
-	            if (f != null) {
-	            	cont += puntajeDeFicha(f.getValor());
-	            }
-	        }
-	    }
-	    return cont;
-	}
-    
-
-    private int puntajeDeFicha(int valor) {
-        if (valor == 1 || valor == 2) {
-            return 0;
-        }
-        
-        int puntajeAcumulado = 3;
-        int fichaSimulada = 3;
-        
-        while (fichaSimulada < valor) {
-            fichaSimulada = fichaSimulada * 2;
-            puntajeAcumulado = puntajeAcumulado * 3;
-        }
-        return puntajeAcumulado;
+    	puntaje = tablero.calcularPuntaje();
+    	return this.puntaje;
     }
-
-	public boolean isGameOver() {
-        return gameOver;
+    
+    public String getMovimientoSugerido() {
+    	return tablero.movimientoSugerido();
     }
 }

@@ -1,6 +1,5 @@
 package gui;
 
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -19,7 +18,7 @@ import javax.swing.*;
 	        //labels ventana perdiste
 	        JLabel Titulo = new JLabel("GAME OVER", SwingConstants.CENTER);
 	        Titulo.setFont(new Font("Verdana", Font.BOLD, 24));
-	        Titulo.setForeground(new Color(178, 34, 34));
+	        Titulo.setForeground(new Color(178, 35, 34));
 
 	        JLabel Nombre = new JLabel("Nombre: " + nombre, SwingConstants.CENTER);
 	        Nombre.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -56,6 +55,4 @@ import javax.swing.*;
 	        setContentPane(panel);
 	        setVisible(true);
 	    }
-	
-
 }
