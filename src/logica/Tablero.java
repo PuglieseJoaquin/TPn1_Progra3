@@ -384,7 +384,7 @@ public class Tablero {
     	    Random r = new Random();
     	    return posibles.get(r.nextInt(posibles.size()));
     	} else {
-    		return "Ups";
+    		return "Error 404 :P";
     	}
     }
 }

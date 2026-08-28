@@ -49,7 +49,7 @@ public class PantallaJuego extends JFrame {
    
    
 
-    public PantallaJuego(String nombre, int tamañoMatriz, int dimensionVentana, String nivel) {
+    public PantallaJuego(String nombreJugador, int tamañoMatriz, int dimensionVentana, String nivel) {
     	
 		setTitle("Programación three...s");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,24 +83,24 @@ public class PantallaJuego extends JFrame {
 		panelJuego.setLayout(null);
 		
 		//inicio logica
-		this.juego = new Juego(tamañoMatriz);
+		this.juego = new Juego(tamañoMatriz, nombreJugador);
 		
-		JLabel lblNewLabel = new JLabel("Buena Suerte!!!");
-		lblNewLabel.setBackground(new Color(102, 205, 170));
-		lblNewLabel.setForeground(new Color(178, 34, 34));
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblNewLabel.setBounds(10, 10, 161, 45);
-		panelJuego.add(lblNewLabel);
+		JLabel lblSuerte = new JLabel("Buena Suerte!!!");
+		lblSuerte.setBackground(new Color(102, 205, 170));
+		lblSuerte.setForeground(new Color(0, 0, 139));
+		lblSuerte.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblSuerte.setBounds(10, 10, 161, 45);
+		panelJuego.add(lblSuerte);
 		
 		JLabel lblProximaFicha = new JLabel("Proxima Ficha");
-		lblProximaFicha.setForeground(new Color(178, 34, 34));
+		lblProximaFicha.setForeground(new Color(0, 0, 139));
 		lblProximaFicha.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblProximaFicha.setBackground(new Color(102, 205, 170));
 		lblProximaFicha.setBounds(10, 83, 161, 45);
 		panelJuego.add(lblProximaFicha);
 		
 		JLabel lblJugadaSugerida = new JLabel("Jugada Sugerida");
-		lblJugadaSugerida.setForeground(new Color(178, 34, 34));
+		lblJugadaSugerida.setForeground(new Color(0, 0, 139));
 		lblJugadaSugerida.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblJugadaSugerida.setBackground(new Color(102, 205, 170));
 		lblJugadaSugerida.setBounds(10, 179, 180, 45);
@@ -114,7 +114,7 @@ public class PantallaJuego extends JFrame {
 		lblProximaFichaValor.setOpaque(true);
 		lblProximaFichaValor.setFont(new Font("Verdana", Font.BOLD, 18));
 //		lblProximaFichaValor.setBackground(colorParaValor(juego.getTablero().getProximoValorFicha()));
-		lblProximaFichaValor.setBounds(53, 134, 80, 45);
+		lblProximaFichaValor.setBounds(39, 137, 80, 45);
 		panelJuego.add(lblProximaFichaValor);
 		
 		lblMovimientoSugerido = new JLabel("sugerencia");
@@ -125,21 +125,25 @@ public class PantallaJuego extends JFrame {
 		lblMovimientoSugerido.setOpaque(true);
 		lblMovimientoSugerido.setBackground(new Color(102, 205, 170));
 		lblMovimientoSugerido.setText(juego.getMovimientoSugerido());
-		lblMovimientoSugerido.setBounds(40, 221, 125, 45);
+		lblMovimientoSugerido.setBounds(20, 221, 125, 45);
 		panelJuego.add(lblMovimientoSugerido);
 		
-		JLabel lblProximaFicha_1_1 = new JLabel("nombreUsuario");
-		lblProximaFicha_1_1.setForeground(new Color(178, 34, 34));
-		lblProximaFicha_1_1.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblProximaFicha_1_1.setBackground(new Color(102, 205, 170));
-		lblProximaFicha_1_1.setBounds(53, 46, 80, 45);
-		panelJuego.add(lblProximaFicha_1_1);
+		JLabel lblNombreUsuario = new JLabel("nombreUsuario");
+		lblNombreUsuario.setForeground(new Color(178, 34, 34));
+		lblNombreUsuario.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblNombreUsuario.setBackground(new Color(102, 205, 170));
+		lblNombreUsuario.setOpaque(true);
+		lblNombreUsuario.setText(nombreJugador);
+		lblNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreUsuario.setVerticalAlignment(SwingConstants.CENTER);
+		lblNombreUsuario.setBounds(20, 46, 125, 45);
+		panelJuego.add(lblNombreUsuario);
 		
-		JLabel lblEligeTuMovimiento = new JLabel("Elige tu movimiento");
-		lblEligeTuMovimiento.setForeground(new Color(178, 34, 34));
+		JLabel lblEligeTuMovimiento = new JLabel("Move!");
+		lblEligeTuMovimiento.setForeground(new Color(0, 100, 0));
 		lblEligeTuMovimiento.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblEligeTuMovimiento.setBackground(new Color(102, 205, 170));
-		lblEligeTuMovimiento.setBounds(10, 257, 190, 50);
+		lblEligeTuMovimiento.setBounds(20, 264, 190, 62);
 		panelJuego.add(lblEligeTuMovimiento);
 		
 		JPanel panelMatriz = new JPanel();
@@ -154,7 +158,7 @@ public class PantallaJuego extends JFrame {
 				juego.mover(evento);
 				actualizarVista();
 				if (juego.isGameOver()) {
-					new PantallaPerdiste(nombre, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
+					new PantallaPerdiste(nombreJugador, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
 				    dispose();
 				}
 			}
@@ -179,6 +183,9 @@ public class PantallaJuego extends JFrame {
     }
 
     private void actualizarVista() {
+    	//print de prueba
+    	System.out.println(juego.getPuntajes());
+    	
 		Tablero tablero = juego.getTablero();
 		int tamaño = tablero.getTamaño();
 		

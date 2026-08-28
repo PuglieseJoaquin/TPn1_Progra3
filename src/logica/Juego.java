@@ -1,27 +1,53 @@
 package logica;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Juego {
     private Tablero tablero;
     private int puntaje;
     private boolean gameOver;
-//    private boolean huboColision;
+    private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    private Usuario jugadorActual;
+    private String nombreJugador;
 
-    public Juego(int tamañoMatriz) {
+    public Juego(int tamañoMatriz, String nombreJugador) {
         this.tablero = new Tablero(tamañoMatriz);
         this.puntaje = 0;
         this.gameOver = false;
-//        this.huboColision = false;
+        this.nombreJugador = nombreJugador;
+        this.jugadorActual = crearUsuario();
+    }
+    
+    private Usuario crearUsuario() {
+    	Usuario usuarioActual = new Usuario(nombreJugador);
+    	usuarios.add(usuarioActual);
+    	return usuarioActual;
+    }
+    
+    public Usuario getJugadorActual() {
+    	return this.jugadorActual;
+    }
+    
+    //print de prueba
+    public String getPuntajes() {
+        StringBuilder sb = new StringBuilder();
+        for (Usuario u : usuarios) {
+            sb.append(u.getNombre())
+              .append(" - ")
+              .append(u.getPuntaje())
+              .append("\n");
+        }
+        return sb.toString();
+    }
+    
+    public int getTamañoArrayUsuario() {
+    	return usuarios.size();
     }
     
 	public boolean isGameOver() {
         return gameOver;
     }
-	
-//	public boolean getHuboColision() {
-//		return this.huboColision;
-//	}
 	
     public void mover(int codigoTecla) {
     	
@@ -53,6 +79,7 @@ public class Juego {
 
     public int getPuntaje() {
     	puntaje = tablero.calcularPuntaje();
+    	jugadorActual.setPuntaje(puntaje);
     	return this.puntaje;
     }
     
