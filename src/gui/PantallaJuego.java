@@ -1,38 +1,10 @@
 package gui;
 
-import java.awt.Color;
-
-import java.awt.Font;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.Timer;
-
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.Panel;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.border.MatteBorder;
-import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.BoxLayout;
-import javax.swing.JTable;
-import java.awt.BorderLayout;
-import javax.swing.JInternalFrame;
-import javax.swing.border.BevelBorder;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+
+import javax.swing.*;
 
 import logica.Ficha;
 import logica.Juego;
@@ -46,8 +18,6 @@ public class PantallaJuego extends JFrame {
     private Juego juego;
     private JLabel lblProximaFichaValor;
     private JLabel lblMovimientoSugerido;
-   
-   
 
     public PantallaJuego(String nombreJugador, int tamañoMatriz, int dimensionVentana, String nivel) {
     	
@@ -55,20 +25,8 @@ public class PantallaJuego extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		panelFondo = new JPanel();
-		
-//		panelFondo.addKeyListener(new KeyAdapter() {
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				int evento = e.getKeyCode();
-//				juego.mover(evento);
-//				actualizarVista();
-//				if (juego.isGameOver()) {
-//					new PantallaPerdiste(nombre, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
-//				    dispose();
-//				}
-//			}
-//		});
 		
 		setContentPane(panelFondo);
 		panelFondo.setLayout(new BorderLayout(0, 0));
@@ -83,9 +41,7 @@ public class PantallaJuego extends JFrame {
 		panelJuego.setLayout(null);
 		
 		//inicio logica
-		this.juego = new Juego(tamañoMatriz, nombreJugador);
-		//capturo nivel
-		this.juego.getJugadorActual().setNivel(nivel);
+		this.juego = new Juego(tamañoMatriz, nombreJugador, nivel);
 		
 		JLabel lblSuerte = new JLabel("Buena Suerte!!!");
 		lblSuerte.setBackground(new Color(102, 205, 170));
@@ -109,13 +65,11 @@ public class PantallaJuego extends JFrame {
 		panelJuego.add(lblJugadaSugerida);
 		
 		lblProximaFichaValor = new JLabel("ficha futura");
-//		lblProximaFichaValor.setText(String.valueOf(juego.getTablero().getProximoValorFicha()));
 		lblProximaFichaValor.setForeground(Color.BLACK);
 		lblProximaFichaValor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProximaFichaValor.setVerticalAlignment(SwingConstants.CENTER);
 		lblProximaFichaValor.setOpaque(true);
 		lblProximaFichaValor.setFont(new Font("Verdana", Font.BOLD, 18));
-//		lblProximaFichaValor.setBackground(colorParaValor(juego.getTablero().getProximoValorFicha()));
 		lblProximaFichaValor.setBounds(39, 137, 80, 45);
 		panelJuego.add(lblProximaFichaValor);
 		
@@ -159,8 +113,10 @@ public class PantallaJuego extends JFrame {
 				int evento = e.getKeyCode();
 				juego.mover(evento);
 				actualizarVista();
+				
 				if (juego.isGameOver()) {
-					new PantallaPerdiste(nombreJugador, juego.getPuntaje(), tamañoMatriz, dimensionVentana, nivel);
+					int puntajePartida = juego.getPuntaje();
+					new PantallaPerdiste(nombreJugador, puntajePartida, tamañoMatriz, dimensionVentana, nivel);
 				    dispose();
 				}
 			}
@@ -185,8 +141,6 @@ public class PantallaJuego extends JFrame {
     }
 
     private void actualizarVista() {
-    	//print de prueba
-    	System.out.println(juego.getPuntajes());
     	
 		Tablero tablero = juego.getTablero();
 		int tamaño = tablero.getTamaño();

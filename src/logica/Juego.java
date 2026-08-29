@@ -3,50 +3,45 @@ package logica;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.Map;
 
 public class Juego {
     private Tablero tablero;
     private int puntaje;
     private boolean gameOver;
-    private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    private static Map<String, Usuario> usuarios = new HashMap<>();
+    private Partida partidaActual;
     private Usuario jugadorActual;
     private String nombreJugador;
+    private String nivel;
+    private int valorFichaMaximo;
 
-    public Juego(int tamañoMatriz, String nombreJugador) {
+    public Juego(int tamañoMatriz, String nombreJugador, String nivel) {
         this.tablero = new Tablero(tamañoMatriz);
         this.puntaje = 0;
         this.gameOver = false;
         this.nombreJugador = nombreJugador;
-        this.jugadorActual = crearUsuario();
-        
-        
+        this.nivel = nivel;
+        this.partidaActual = new Partida(nombreJugador, puntaje, valorFichaMaximo, nivel);
+        this.jugadorActual = crearUsuario();  
+        this.valorFichaMaximo = 0;
+
     }
     
     private Usuario crearUsuario() {
-    	Usuario usuarioActual = new Usuario(nombreJugador);
-    	usuarios.add(usuarioActual);
+    	Usuario usuarioActual = usuarios.get(nombreJugador);
+    	
+    	if (usuarioActual == null) {
+    		usuarioActual = new Usuario(nombreJugador);
+    		usuarios.put(nombreJugador, usuarioActual);
+    	}
+
+    	usuarioActual.agregarPartida(partidaActual);
     	return usuarioActual;
     }
     
     public Usuario getJugadorActual() {
     	return this.jugadorActual;
-    }
-    
-    public static ArrayList<Usuario> getUsuarios() {   
-        return usuarios;
-    }
-    
-    //print de prueba
-    public String getPuntajes() {
-        StringBuilder sb = new StringBuilder();
-        for (Usuario u : usuarios) {
-            sb.append(u.getNombre())
-              .append(" - ")
-              .append(u.getPuntaje())
-              .append("\n");
-        }
-        return sb.toString();
     }
     
     public int getTamañoArrayUsuario() {
@@ -60,8 +55,6 @@ public class Juego {
     public void mover(int codigoTecla) {
     	
         if (!gameOver && (!tablero.estaCompleto() || tablero.hayMovimientosPosibles())) {
-        	System.out.println(tablero.getContadorFichas());
-        	System.out.println(tablero.hayMovimientosPosibles());
             switch (codigoTecla) {
                 case KeyEvent.VK_RIGHT:
                     tablero.moverDerecha();
@@ -78,17 +71,23 @@ public class Juego {
             }
         } else {
             gameOver = true;
+            puntaje = calcularPuntaje();
+            
         }
     }
 
     public Tablero getTablero() {
         return tablero;
     }
-
+    
     public int getPuntaje() {
+    	return puntaje;
+    }
+
+    public int calcularPuntaje() {
     	puntaje = tablero.calcularPuntaje();
-    	jugadorActual.setPuntaje(puntaje);
-    	jugadorActual.setValorMaximo(tablero.getValorMaximo());
+    	partidaActual.setPuntaje(puntaje);
+    	partidaActual.setValorFichaMaximo(tablero.getValorMaximo());
     	return this.puntaje;
     }
     
@@ -96,52 +95,37 @@ public class Juego {
     	return tablero.movimientoSugerido();
     }
     
-    public static ArrayList<Usuario> getTop5() {
-    	ArrayList<Usuario> sinRepetidos = quedarseConElMejorPorNombre();
-        return obtenerMejores(sinRepetidos, 5);
-    }
+    public static ArrayList<Partida> getTop5Puntajes() {
+        ArrayList<Partida> todasLasPartidas = new ArrayList<>();
 
-    private static ArrayList<Usuario> quedarseConElMejorPorNombre() {
-        HashMap<String, Usuario> mejoresPorNombre = new HashMap<>();
-        
-        for (Usuario u : usuarios) {
-            
-        	Usuario JugadorExistente = mejoresPorNombre.get(u.getNombre());
-            
-            if (JugadorExistente == null || u.getPuntaje() > JugadorExistente.getPuntaje()) {
-                mejoresPorNombre.put(u.getNombre(), u);
-            }
+        for (Usuario u : usuarios.values()) {
+        	todasLasPartidas.addAll(u.getPartidas());
         }
-        return new ArrayList<>(mejoresPorNombre.values());
-    }
-    
-    
-    private static ArrayList<Usuario> obtenerMejores(ArrayList<Usuario> lista, int cantidad) {
-        ArrayList<Usuario> JugadoresAElegir = new ArrayList<>(lista);
-        ArrayList<Usuario> RankingFinal = new ArrayList<>();
 
-        int cantidadAMostrar;
-        
-        if (JugadoresAElegir.size() < cantidad) {
-            cantidadAMostrar = JugadoresAElegir.size();
-        } else {
-            cantidadAMostrar = cantidad;
-        }
+        ArrayList<Partida> top5 = obtenerMejores(todasLasPartidas, 5);
+        return top5;
+    }
+      
+    private static ArrayList<Partida> obtenerMejores(ArrayList<Partida> lista, int cantidad) {
+        ArrayList<Partida> partidasAElegir = new ArrayList<>(lista);
+        ArrayList<Partida> rankingFinal = new ArrayList<>();
+
+        int cantidadAMostrar = Math.min(partidasAElegir.size(), cantidad);
 
         for (int i = 0; i < cantidadAMostrar; i++) {
-            Usuario mejor = encontrarMejor(JugadoresAElegir);
-            RankingFinal.add(mejor);
-            JugadoresAElegir.remove(mejor);
+            Partida mejor = encontrarMejor(partidasAElegir);
+            rankingFinal.add(mejor);
+            partidasAElegir.remove(mejor);
         }
 
-        return RankingFinal;
+        return rankingFinal;
     }
 
-    private static Usuario encontrarMejor(ArrayList<Usuario> lista) {
-        Usuario mejor = lista.get(0);
-        for (Usuario u : lista) {
-            if (u.getPuntaje() > mejor.getPuntaje()) {
-                mejor = u;
+    private static Partida encontrarMejor(ArrayList<Partida> lista) {
+        Partida mejor = lista.get(0);
+        for (Partida p : lista) {
+            if (p.getPuntaje() > mejor.getPuntaje()) {
+                mejor = p;
             }
         }
         return mejor;

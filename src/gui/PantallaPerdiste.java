@@ -3,13 +3,17 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import logica.Juego;
+
 	public class PantallaPerdiste extends JFrame {
 
-	    public PantallaPerdiste(String nombre, int puntaje, int tamañoMatriz, int dimensionVentana, String nivel) {
+	    public PantallaPerdiste(String nombre, int puntajePartida, int tamañoMatriz, int dimensionVentana, String nivel) {
+	    	
 	        setTitle("Game Over - Threes");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setBounds(100, 100, 400, 300);
+	        setBounds(100, 100, 600, 400);
 	        setLocationRelativeTo(null);
+	        setResizable(false);
 	        
 	        JPanel panel = new JPanel();
 	        panel.setLayout(new GridLayout(4, 1, 10, 10));
@@ -23,7 +27,7 @@ import javax.swing.*;
 	        JLabel Nombre = new JLabel("Nombre: " + nombre, SwingConstants.CENTER);
 	        Nombre.setFont(new Font("Verdana", Font.PLAIN, 18));
 
-	        JLabel Puntaje = new JLabel("Puntaje: " + puntaje, SwingConstants.CENTER);
+	        JLabel Puntaje = new JLabel("Puntaje: " + puntajePartida, SwingConstants.CENTER);
 	        Puntaje.setFont(new Font("Verdana", Font.PLAIN, 18));
 	        
 	        //botones

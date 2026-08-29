@@ -1,37 +1,23 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.awt.*;
+import java.util.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import logica.Juego;
-import logica.Usuario;
-
-import javax.swing.JTextField;
-import java.awt.Cursor;
-import javax.swing.JComboBox;
-import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JTable;
+import logica.Partida;
+import javax.swing.border.MatteBorder;
 
 public class PantallaRanking extends JFrame{
 	public PantallaRanking() {
         setTitle("Ranking - Threes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 400);
+        setBounds(100, 100, 600, 400);
         setLocationRelativeTo(null);
+        setResizable(false);
 
         JPanel panelFondo = new JPanel();
         panelFondo.setBackground(new Color(60, 179, 113));
@@ -40,12 +26,10 @@ public class PantallaRanking extends JFrame{
 		
 		//titulo
         JLabel lblNewLabel = new JLabel("RANKING",SwingConstants.CENTER);
-        lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 24));
+        lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 30));
         lblNewLabel.setForeground(new Color(255, 215, 0));
         panelFondo.add(lblNewLabel, BorderLayout.NORTH);
-
         setVisible(true);
-        
         
 		//boton volver al inicio
         JButton btnVolver = new JButton("Volver al menu");
@@ -56,37 +40,39 @@ public class PantallaRanking extends JFrame{
             dispose();
         });
         
-        //obtengo juegadores
-        ArrayList<Usuario> top5 = Juego.getTop5();
-        
+        ArrayList<Partida> top5Puntajes = Juego.getTop5Puntajes();
         
         //tabla
-        String[] columnas = {"Puesto", "Nombre", "Puntaje", "Logro", "Nivel"};
+        String[] columnas = {"Puesto", "Nombre", "Puntaje", "Ficha Mayor", "Nivel"};
         DefaultTableModel modeloDeTabla = new DefaultTableModel(columnas, 0);
 
-        for (int i = 0; i < top5.size(); i++) {
-            Usuario u = top5.get(i);
-            modeloDeTabla.addRow(new Object[]{i + 1, u.getNombre(), u.getPuntaje(), u.getValorMaximo(), u.getNivel()});
+        for (int i = 0; i < top5Puntajes.size(); i++) {
+        	Partida p = top5Puntajes.get(i);
+        	modeloDeTabla.addRow(new Object[]{i + 1, p.getNombreJugador(), p.getPuntaje(), p.getValorFichaMaximo(), p.getNivel()});
         }
-        
-        
+            
         JTable tabla = new JTable(modeloDeTabla);
-        tabla.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        tabla.setRowHeight(30);
+        tabla.setShowVerticalLines(false);
+        tabla.setBackground(new Color(245, 222, 179));
+        tabla.setFont(new Font("Tahoma", Font.BOLD, 16));
+        tabla.setRowHeight(40);
         tabla.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 16));
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
         JScrollPane scroll = new JScrollPane(tabla);
+        scroll.setViewportBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
         panelFondo.add(scroll, BorderLayout.CENTER);
-        
-        
+               
         JPanel panelBoton = new JPanel();
         panelBoton.setBackground(new Color(60, 179, 113));
         panelBoton.add(btnVolver);
         panelFondo.add(panelBoton, BorderLayout.SOUTH);
-        
-        
 	}
-	
 }
 	
 	

@@ -21,7 +21,6 @@ public class Principal {
 		
 		/* GRUPO N°5
 		. Joa: pugliesejoaquinsebastian214@gmail.com
-		mial: 
 		. Julian: julianponceflores93@gmail.com
 		. Juan: juanspereyra@live.com
 		. Rami: ramisalv777@gmail.com

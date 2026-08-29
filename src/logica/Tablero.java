@@ -35,11 +35,6 @@ public class Tablero {
 		this.fichas[2][2] = new Ficha(2);
 	
 	}
-	
-	// metodo innecesario, solo es de control
-	public int getContadorFichas() {
-		return this.contadorFichas;
-	}
 
 	public void moverDerecha() {
 		if (bordeDerechoVacio()) {
@@ -185,45 +180,6 @@ public class Tablero {
 		}
 		return true;
 	}
-
-//	public boolean moverFilasALaDerechaBool() {
-//		boolean huboMovimiento = false;
-//		
-//		for (int fila = 0; fila < tamaño; fila++) {
-//			huboMovimiento |= moverFilaDerechaBool(fila);
-//		}
-//		return huboMovimiento;
-//	}
-//
-//	public boolean moverFilaDerechaBool(int fila) {
-//		boolean huboMovimiento = false;
-//		boolean yaSeFusiono = false;
-//
-//		for (int col = tamaño - 2; col >= 0; col--) {
-//			Ficha actual = fichas[fila][col];
-//
-//			if (actual != null) {
-//				int destino = col + 1;
-//				Ficha vecina = fichas[fila][destino];
-//
-//				if (vecina == null) {
-//					fichas[fila][destino] = actual;
-//					fichas[fila][col] = null;
-//					huboMovimiento |= true;
-//
-//				} else if (!yaSeFusiono && actual.puedeFusionarseCon(vecina)) {
-//					fichas[fila][destino] = actual.fusionarCon(vecina);
-//					fichas[fila][col] = null;
-//					yaSeFusiono = true;
-//					huboMovimiento |= true;
-//					contadorFichas--;
-//				}
-//			} else {
-//				huboMovimiento |= false;
-//			}
-//		}
-//		return huboMovimiento;
-//	}
 	
 	public void moverFilasALaDerecha() {
 		for (int fila = 0; fila < tamaño; fila++) {
@@ -268,7 +224,6 @@ public class Tablero {
 		}
 	}
 
-	// hago que col sea cambia a fila, para que pueda manipularlo moverFilaDerecha
 	private void columnaAFila() {
 		Ficha[][] nueva = new Ficha[tamaño][tamaño];
 		for (int fila = 0; fila < tamaño; fila++) {
@@ -351,7 +306,7 @@ public class Tablero {
 
 	public int calcularPuntaje() {
 	    int cont = 0;
-	    int max = 0;
+	    int valorMaxFicha = 0;
 
 	    for (int fila = 0; fila < tamaño; fila++) {
 	        for (int col = 0; col < tamaño; col++) {
@@ -359,13 +314,13 @@ public class Tablero {
 	            if (f != null && f.getValor() != 1 && f.getValor() != 2) {
 	                cont += puntajeDeFicha(f.getValor());
 
-	                if (f.getValor() > max) {
-	                    max = f.getValor();
+	                if (f.getValor() > valorMaxFicha) {
+	                	valorMaxFicha = f.getValor();
 	                }
 	            }
 	        }
 	    }
-	    this.valorMaximo = max;
+	    this.valorMaximo = valorMaxFicha;
 	    return cont;
 	}
     
