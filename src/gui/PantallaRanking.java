@@ -2,77 +2,89 @@ package gui;
 
 import java.awt.*;
 import java.util.*;
-
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import logica.Juego;
 import logica.Partida;
-import javax.swing.border.MatteBorder;
 
-public class PantallaRanking extends JFrame{
-	public PantallaRanking() {
-        setTitle("Ranking - Threes");
+public class PantallaRanking extends JFrame {
+    public PantallaRanking() {
+        setTitle("Threes! — Ranking");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         setLocationRelativeTo(null);
         setResizable(false);
 
         JPanel panelFondo = new JPanel();
-        panelFondo.setBackground(new Color(60, 179, 113));
+        panelFondo.setBackground(new Color(30, 41, 59)); 
         panelFondo.setLayout(new BorderLayout(10, 10));
+        panelFondo.setBorder(new EmptyBorder(15, 15, 15, 15));
         setContentPane(panelFondo);
-		
-		//titulo
-        JLabel lblNewLabel = new JLabel("RANKING",SwingConstants.CENTER);
-        lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 30));
-        lblNewLabel.setForeground(new Color(255, 215, 0));
-        panelFondo.add(lblNewLabel, BorderLayout.NORTH);
-        setVisible(true);
         
-		//boton volver al inicio
-        JButton btnVolver = new JButton("Volver al menu");
-        btnVolver.setFont(new Font("Tahoma", Font.BOLD, 14));
+        // Título 
+        JLabel lblRanking = new JLabel("RANKING", SwingConstants.CENTER);
+        lblRanking.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblRanking.setForeground(new Color(248, 250, 252));
+        panelFondo.add(lblRanking, BorderLayout.NORTH);
+        
+        ArrayList<Partida> top5Puntajes = Juego.getTop5Puntajes();
+        
+        // Tabla
+        String[] columnas = {"Puesto", "Nombre", "Puntaje", "Ficha Mayor", "Nivel"};
+        DefaultTableModel modeloDeTabla = new DefaultTableModel(columnas, 0);
+
+        for (int i = 0; i < top5Puntajes.size(); i++) {
+            Partida p = top5Puntajes.get(i);
+            modeloDeTabla.addRow(new Object[]{i + 1, p.getNombreJugador(), p.getPuntaje(), p.getValorFichaMaximo(), p.getNivel()});
+        }
+            
+        JTable tabla = new JTable(modeloDeTabla);
+        tabla.setShowVerticalLines(false);
+        tabla.setGridColor(new Color(51, 65, 85));
+        tabla.setBackground(new Color(15, 23, 42));
+        tabla.setForeground(new Color(241, 245, 249));
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        tabla.setRowHeight(32);
+        
+        // Encabezado de la tabla
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
+        tabla.getTableHeader().setBackground(new Color(51, 65, 85));
+        tabla.getTableHeader().setForeground(new Color(248, 250, 252));
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        centerRenderer.setBackground(new Color(15, 23, 42));
+        centerRenderer.setForeground(new Color(241, 245, 249));
+
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        
+        JScrollPane scroll = new JScrollPane(tabla);
+        scroll.getViewport().setBackground(new Color(15, 23, 42));
+        scroll.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
+        panelFondo.add(scroll, BorderLayout.CENTER);
+               
+        // Botón Volver al menú 
+        JButton btnVolver = new JButton("Volver al menú");
+        btnVolver.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnVolver.setForeground(new Color(241, 245, 249));
+        btnVolver.setBackground(new Color(51, 65, 85));
+
         btnVolver.addActionListener(e -> {
             PantallaInicial inicio = new PantallaInicial();
             inicio.setVisible(true);
             dispose();
         });
         
-        ArrayList<Partida> top5Puntajes = Juego.getTop5Puntajes();
-        
-        //tabla
-        String[] columnas = {"Puesto", "Nombre", "Puntaje", "Ficha Mayor", "Nivel"};
-        DefaultTableModel modeloDeTabla = new DefaultTableModel(columnas, 0);
-
-        for (int i = 0; i < top5Puntajes.size(); i++) {
-        	Partida p = top5Puntajes.get(i);
-        	modeloDeTabla.addRow(new Object[]{i + 1, p.getNombreJugador(), p.getPuntaje(), p.getValorFichaMaximo(), p.getNivel()});
-        }
-            
-        JTable tabla = new JTable(modeloDeTabla);
-        tabla.setShowVerticalLines(false);
-        tabla.setBackground(new Color(245, 222, 179));
-        tabla.setFont(new Font("Tahoma", Font.BOLD, 16));
-        tabla.setRowHeight(40);
-        tabla.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 16));
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        for (int i = 0; i < tabla.getColumnCount(); i++) {
-            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        JScrollPane scroll = new JScrollPane(tabla);
-        scroll.setViewportBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-        panelFondo.add(scroll, BorderLayout.CENTER);
-               
         JPanel panelBoton = new JPanel();
-        panelBoton.setBackground(new Color(60, 179, 113));
+        panelBoton.setBackground(new Color(30, 41, 59));
         panelBoton.add(btnVolver);
         panelFondo.add(panelBoton, BorderLayout.SOUTH);
-	}
+        
+        setVisible(true);
+    }
 }
-	
-	
