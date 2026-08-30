@@ -13,22 +13,22 @@ public class Tablero {
 	private Random valorRandom;
 
 	private Ficha[][] fichas;
-	private int tamaño;
+	private int tamanio;
 	private int contadorFichas;
 	private int proximoValorFicha;
 
 	private int valorMaximo;
 
-	public Tablero(int tamañoMatriz) {
-		this.tamaño = tamañoMatriz;
-		this.fichas = new Ficha[tamañoMatriz][tamañoMatriz];
+	public Tablero(int tamanioMatriz) {
+		this.tamanio = tamanioMatriz;
+		this.fichas = new Ficha[tamanioMatriz][tamanioMatriz];
 		this.proximoValorFicha = generarValorRandom();
 		this.movimientoSugerido = movimientoSugerido();
 
 		// seteado en dos porque tenemos 2 fichas al comenzar
 		this.contadorFichas = 2;
 		// inicia tablero con Fichas null
-		fichas = new Ficha[tamañoMatriz][tamañoMatriz];
+		fichas = new Ficha[tamanioMatriz][tamanioMatriz];
 
 		// hardcodeado
 		this.fichas[1][1] = new Ficha(1);
@@ -107,8 +107,8 @@ public class Tablero {
 	}
 	
 	private boolean hayMovimientoALaDerecha() {
-		for (int fila = 0; fila < tamaño; fila++) {
-			for (int col = 0; col < tamaño-1; col++) {
+		for (int fila = 0; fila < tamanio; fila++) {
+			for (int col = 0; col < tamanio-1; col++) {
 				
 				Ficha actual = fichas[fila][col];
 				Ficha derecha = fichas[fila][col+1];
@@ -146,8 +146,8 @@ public class Tablero {
 	}
 	
 	public boolean bordeDerechoVacio() {
-		for (int fila = 0; fila < tamaño; fila++) {
-			if (fichas[fila][tamaño - 1] != null) {
+		for (int fila = 0; fila < tamanio; fila++) {
+			if (fichas[fila][tamanio - 1] != null) {
 				return false;
 			}
 		}
@@ -155,7 +155,7 @@ public class Tablero {
 	}
 
 	public boolean bordeIzquierdoVacio() {
-		for (int fila = 0; fila < tamaño; fila++) {
+		for (int fila = 0; fila < tamanio; fila++) {
 			if (fichas[fila][0] != null) {
 				return false;
 			}
@@ -164,7 +164,7 @@ public class Tablero {
 	}
 
 	public boolean bordeArribaVacio() {
-		for (int col = 0; col < tamaño; col++) {
+		for (int col = 0; col < tamanio; col++) {
 			if (fichas[0][col] != null) {
 				return false;
 			}
@@ -173,8 +173,8 @@ public class Tablero {
 	}
 
 	public boolean bordeAbajoVacio() {
-		for (int col = 0; col < tamaño; col++) {
-			if (fichas[tamaño - 1][col] != null) {
+		for (int col = 0; col < tamanio; col++) {
+			if (fichas[tamanio - 1][col] != null) {
 				return false;
 			}
 		}
@@ -182,7 +182,7 @@ public class Tablero {
 	}
 	
 	public void moverFilasALaDerecha() {
-		for (int fila = 0; fila < tamaño; fila++) {
+		for (int fila = 0; fila < tamanio; fila++) {
 			moverFilaDerecha(fila);
 		}
 	}
@@ -190,7 +190,7 @@ public class Tablero {
 	public void moverFilaDerecha(int fila) {
 		boolean yaSeFusiono = false;
 
-		for (int col = tamaño - 2; col >= 0; col--) {
+		for (int col = tamanio - 2; col >= 0; col--) {
 			Ficha actual = fichas[fila][col];
 
 			if (actual != null) {
@@ -215,19 +215,19 @@ public class Tablero {
 	}
 
 	private void invertirFilas() {
-		for (int fila = 0; fila < tamaño; fila++) {
-			for (int col = 0; col < tamaño / 2; col++) {
+		for (int fila = 0; fila < tamanio; fila++) {
+			for (int col = 0; col < tamanio / 2; col++) {
 				Ficha temp = fichas[fila][col];
-				fichas[fila][col] = fichas[fila][tamaño - 1 - col];
-				fichas[fila][tamaño - 1 - col] = temp;
+				fichas[fila][col] = fichas[fila][tamanio - 1 - col];
+				fichas[fila][tamanio - 1 - col] = temp;
 			}
 		}
 	}
 
 	private void columnaAFila() {
-		Ficha[][] nueva = new Ficha[tamaño][tamaño];
-		for (int fila = 0; fila < tamaño; fila++) {
-			for (int col = 0; col < tamaño; col++) {
+		Ficha[][] nueva = new Ficha[tamanio][tamanio];
+		for (int fila = 0; fila < tamanio; fila++) {
+			for (int col = 0; col < tamanio; col++) {
 				nueva[col][fila] = fichas[fila][col];
 			}
 		}
@@ -274,7 +274,7 @@ public class Tablero {
 		
 	private int generarPosicionRandom() {
 		posicionRandom = new Random();
-		int posicion = posicionRandom.nextInt(tamaño);
+		int posicion = posicionRandom.nextInt(tamanio);
 		
 		return posicion;
 		}
@@ -290,12 +290,12 @@ public class Tablero {
 		return fichas[fila][col];
 	}
 
-	public int getTamaño() {
-		return tamaño;
+	public int getTamanio() {
+		return tamanio;
 	}
 
 	public boolean estaCompleto() {
-		int cantidadEspacios = tamaño * tamaño;
+		int cantidadEspacios = tamanio * tamanio;
 		return (contadorFichas == cantidadEspacios);
 	}
 
@@ -308,8 +308,8 @@ public class Tablero {
 	    int cont = 0;
 	    int valorMaxFicha = 0;
 
-	    for (int fila = 0; fila < tamaño; fila++) {
-	        for (int col = 0; col < tamaño; col++) {
+	    for (int fila = 0; fila < tamanio; fila++) {
+	        for (int col = 0; col < tamanio; col++) {
 	            Ficha f = fichas[fila][col];
 	            if (f != null && f.getValor() != 1 && f.getValor() != 2) {
 	                cont += puntajeDeFicha(f.getValor());

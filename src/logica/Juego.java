@@ -16,8 +16,8 @@ public class Juego {
     private String nivel;
     private int valorFichaMaximo;
 
-    public Juego(int tamañoMatriz, String nombreJugador, String nivel) {
-        this.tablero = new Tablero(tamañoMatriz);
+    public Juego(int tamanioMatriz, String nombreJugador, String nivel) {
+        this.tablero = new Tablero(tamanioMatriz);
         this.puntaje = 0;
         this.gameOver = false;
         this.nombreJugador = nombreJugador;
@@ -44,7 +44,7 @@ public class Juego {
     	return this.jugadorActual;
     }
     
-    public int getTamañoArrayUsuario() {
+    public int getTamanioArrayUsuario() {
     	return usuarios.size();
     }
     

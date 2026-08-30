@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class PantallaPerdiste extends JFrame {
-    public PantallaPerdiste(String nombre, int puntajePartida, int tamañoMatriz, int dimensionVentana, String nivel) {
+    public PantallaPerdiste(String nombre, int puntajePartida, int tamanioMatriz, int dimensionVentana, String nivel) {
         
         setTitle("Threes! — Game Over");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +47,7 @@ public class PantallaPerdiste extends JFrame {
         btnJugarDeNuevo.addActionListener(e -> {
             logica.ReproductorMusica.reproducirLoop("/audio/backSound.wav");
             
-            PantallaJuego nuevaPartida = new PantallaJuego(nombre, tamañoMatriz, dimensionVentana, nivel);
+            PantallaJuego nuevaPartida = new PantallaJuego(nombre, tamanioMatriz, dimensionVentana, nivel);
             nuevaPartida.setResizable(false);
             nuevaPartida.setVisible(true);
             dispose();

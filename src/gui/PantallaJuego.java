@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -19,7 +21,7 @@ public class PantallaJuego extends JFrame {
     private JLabel lblProximaFichaValor;
     private JLabel lblMovimientoSugerido;
 
-    public PantallaJuego(String nombreJugador, int tamañoMatriz, int dimensionVentana, String nivel) {
+    public PantallaJuego(String nombreJugador, int tamanioMatriz, int dimensionVentana, String nivel) {
         
         setTitle("Threes! — Partida (" + nivel + ")");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +45,7 @@ public class PantallaJuego extends JFrame {
         panelJuego.setLayout(null);
         
         // Inicio lógica
-        this.juego = new Juego(tamañoMatriz, nombreJugador, nivel);
+        this.juego = new Juego(tamanioMatriz, nombreJugador, nivel);
         
         JLabel lblSuerte = new JLabel("¡A Jugar!");
         lblSuerte.setForeground(new Color(248, 250, 252));
@@ -116,7 +118,7 @@ public class PantallaJuego extends JFrame {
         // Panel central de la matriz de juego
         JPanel panelMatriz = new JPanel();
         panelFondo.add(panelMatriz, BorderLayout.CENTER);
-        panelMatriz.setLayout(new GridLayout(tamañoMatriz, tamañoMatriz, 6, 6));
+        panelMatriz.setLayout(new GridLayout(tamanioMatriz, tamanioMatriz, 6, 6));
         panelMatriz.setBackground(new Color(15, 23, 42)); // Fondo oscuro exterior de la matriz
         panelMatriz.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
@@ -130,14 +132,14 @@ public class PantallaJuego extends JFrame {
                 if (juego.isGameOver()) {
                     logica.ReproductorMusica.detener(); 
                     int puntajePartida = juego.getPuntaje();
-                    new PantallaPerdiste(nombreJugador, puntajePartida, tamañoMatriz, dimensionVentana, nivel);
+                    new PantallaPerdiste(nombreJugador, puntajePartida, tamanioMatriz, dimensionVentana, nivel);
                     dispose();
                 }
             }
         });
 
         // Agrego los cuadrados
-        int matrizTotal = tamañoMatriz * tamañoMatriz;
+        int matrizTotal = tamanioMatriz * tamanioMatriz;
         
         cuadrados = new JLabel[matrizTotal];
         for (int i = 0; i < matrizTotal; i++) {
@@ -151,17 +153,18 @@ public class PantallaJuego extends JFrame {
             cuadrados[i] = cuadrado;
             panelMatriz.add(cuadrado);
         }
+      
         actualizarVista();
     }
 
     private void actualizarVista() {
         Tablero tablero = juego.getTablero();
-        int tamaño = tablero.getTamaño();
+        int tamanio = tablero.getTamanio();
         
-        for (int fila = 0; fila < tamaño; fila++) {
-            for (int col = 0; col < tamaño; col++) {
+        for (int fila = 0; fila < tamanio; fila++) {
+            for (int col = 0; col < tamanio; col++) {
                 Ficha f = tablero.getFicha(fila, col);
-                int index = fila * tamaño + col;
+                int index = fila * tamanio + col;
 
                 if (f == null) {
                     cuadrados[index].setText("");

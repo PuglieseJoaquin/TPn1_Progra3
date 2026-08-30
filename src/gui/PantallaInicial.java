@@ -143,5 +143,20 @@ public class PantallaInicial extends JFrame {
             }
         });
         panelFondo.add(btnRanking);
+        
+        // Botón Salir
+        JButton btnSalir = new JButton("SALIR");
+        btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSalir.setForeground(new Color(100, 100, 100));
+        btnSalir.setBackground(new Color(220, 220, 220));
+        btnSalir.setFocusPainted(false);
+        btnSalir.setBounds(221, 315, 150, 35);
+        
+        btnSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        panelFondo.add(btnSalir);
     }
 }
