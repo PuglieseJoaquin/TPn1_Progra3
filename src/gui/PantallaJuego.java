@@ -126,6 +126,9 @@ public class PantallaJuego extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 int evento = e.getKeyCode();
+                
+                logica.ReproductorMusica.reproducirEfecto("/audio/clin.wav");
+                
                 juego.mover(evento);
                 actualizarVista();
                 

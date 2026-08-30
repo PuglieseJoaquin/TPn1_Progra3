@@ -32,6 +32,28 @@ public class ReproductorMusica {
             e.printStackTrace();
         }
     }
+    // Funcion efectos de sonido (No loop)
+    public static void reproducirEfecto(String rutaArchivo) {
+        try {
+            URL url = ReproductorMusica.class.getResource(rutaArchivo);
+            if (url == null) {
+                System.out.println("No se encontró el efecto de audio: " + rutaArchivo);
+                return;
+            }
+            
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(url);
+            Clip efectoClip = AudioSystem.getClip();
+            efectoClip.open(audioStream);
+            
+            FloatControl gainControl = (FloatControl) efectoClip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-10.0f); 
+            
+            efectoClip.start();
+            
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void detener() {
         if (clip != null && clip.isRunning()) {

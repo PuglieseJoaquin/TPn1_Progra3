@@ -206,6 +206,8 @@ public class Tablero {
 					fichas[fila][col] = null;
 					yaSeFusiono = true;
 					contadorFichas--;
+					
+					ReproductorMusica.reproducirEfecto("/audio/punch.wav");
 				}
 			} else {
 				actual = null;
