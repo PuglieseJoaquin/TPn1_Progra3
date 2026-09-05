@@ -62,7 +62,7 @@ public class PantallaPerdiste extends JFrame {
         btnVolverMenu.setBounds(160, 260, 280, 38);
         
         btnVolverMenu.addActionListener(e -> {
-            PantallaInicial inicio = new PantallaInicial();
+            PantallaMenu inicio = new PantallaMenu();
             inicio.setVisible(true);
             dispose();
         });

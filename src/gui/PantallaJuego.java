@@ -20,100 +20,35 @@ public class PantallaJuego extends JFrame {
     private Juego juego;
     private JLabel lblProximaFichaValor;
     private JLabel lblMovimientoSugerido;
+    private JLabel lblSuerte;
+    private JLabel lblNombreUsuario;
+    private JLabel lblProximaFicha;
+    private JLabel lblJugadaSugerida;
+    private JLabel lblLinea1;
+    private JLabel lblLinea2;
 
     public PantallaJuego(String nombreJugador, int tamanioMatriz, int dimensionVentana, String nivel) {
         
-        setTitle("Threes! — Partida (" + nivel + ")");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 650, 420);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        
-        panelFondo = new JPanel();
-        setContentPane(panelFondo);
-        panelFondo.setLayout(new BorderLayout(0, 0));
-        
-        // Habilitamos al panel para recibir el foco del teclado
-        panelFondo.setFocusable(true);
-        panelFondo.requestFocusInWindow();
-        
-        // Panel lateral derecho 
-        panelJuego = new JPanel();
-        panelJuego.setPreferredSize(new Dimension(210, 0));
-        panelJuego.setBackground(new Color(30, 41, 59));
-        panelFondo.add(panelJuego, BorderLayout.EAST);
-        panelJuego.setLayout(null);
+        configurarPantalla(nivel);
         
         // Inicio lógica
-        this.juego = new Juego(tamanioMatriz, nombreJugador, nivel);
+        juego = new Juego(tamanioMatriz, nombreJugador, nivel);
         
-        JLabel lblSuerte = new JLabel("¡A Jugar!");
-        lblSuerte.setForeground(new Color(248, 250, 252));
-        lblSuerte.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        lblSuerte.setBounds(15, 12, 180, 25);
-        panelJuego.add(lblSuerte);
+        crearLblSuerte();
         
-        // Nombre de usuario 
-        JLabel lblNombreUsuario = new JLabel(nombreJugador);
-        lblNombreUsuario.setForeground(new Color(16, 185, 129)); // Verde 
-        lblNombreUsuario.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        lblNombreUsuario.setBackground(new Color(15, 23, 42));
-        lblNombreUsuario.setOpaque(true);
-        lblNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNombreUsuario.setVerticalAlignment(SwingConstants.CENTER);
-        lblNombreUsuario.setBounds(15, 42, 180, 32);
-        lblNombreUsuario.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
-        panelJuego.add(lblNombreUsuario);
+        crearLblNombreJugador(nombreJugador);
         
-        // Aviso de proxima ficha 
-        JLabel lblProximaFicha = new JLabel("Próxima Ficha:");
-        lblProximaFicha.setForeground(new Color(203, 213, 225));
-        lblProximaFicha.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        lblProximaFicha.setBounds(15, 90, 180, 20);
-        panelJuego.add(lblProximaFicha);
+        crearLblProximaFicha();
         
-        // 
-        lblProximaFichaValor = new JLabel();
-        lblProximaFichaValor.setForeground(new Color(15, 23, 42));
-        lblProximaFichaValor.setHorizontalAlignment(SwingConstants.CENTER);
-        lblProximaFichaValor.setVerticalAlignment(SwingConstants.CENTER);
-        lblProximaFichaValor.setOpaque(true);
-        lblProximaFichaValor.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lblProximaFichaValor.setBounds(15, 115, 180, 38);
-        lblProximaFichaValor.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
-        panelJuego.add(lblProximaFichaValor);
+        crearLblProximaFichaValor();
+       
+        crearLblJugadaSugerida();
         
-        JLabel lblJugadaSugerida = new JLabel("Jugada Sugerida:");
-        lblJugadaSugerida.setForeground(new Color(203, 213, 225));
-        lblJugadaSugerida.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        lblJugadaSugerida.setBounds(15, 170, 180, 20);
-        panelJuego.add(lblJugadaSugerida);
+        crearLblMovimientoSugerido();
         
-        // Valor dinamico del movimiento sugerido
-        lblMovimientoSugerido = new JLabel();
-        lblMovimientoSugerido.setForeground(new Color(241, 245, 249));
-        lblMovimientoSugerido.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        lblMovimientoSugerido.setHorizontalAlignment(SwingConstants.CENTER);
-        lblMovimientoSugerido.setVerticalAlignment(SwingConstants.CENTER);
-        lblMovimientoSugerido.setBackground(new Color(15, 23, 42));
-        lblMovimientoSugerido.setText(juego.getMovimientoSugerido());
-        lblMovimientoSugerido.setBounds(15, 195, 180, 38);
-        panelJuego.add(lblMovimientoSugerido);
-        
-        // Mensaje consejo
-        JLabel lblLinea1 = new JLabel("Usa las flechas");
-        lblLinea1.setForeground(new Color(148, 163, 184));
-        lblLinea1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblLinea1.setHorizontalAlignment(SwingConstants.CENTER);
-        lblLinea1.setBounds(15, 250, 180, 20);
-        panelJuego.add(lblLinea1);
+        crearLblLinea1();
 
-        JLabel lblLinea2 = new JLabel("para deslizar");
-        lblLinea2.setForeground(new Color(148, 163, 184));
-        lblLinea2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblLinea2.setHorizontalAlignment(SwingConstants.CENTER);
-        lblLinea2.setBounds(15, 270, 180, 20);
-        panelJuego.add(lblLinea2);
+        crearLblLinea2();
         
         // Panel central de la matriz de juego
         JPanel panelMatriz = new JPanel();
@@ -159,6 +94,112 @@ public class PantallaJuego extends JFrame {
       
         actualizarVista();
     }
+
+	private void crearLblLinea2() {
+		JLabel lblLinea2 = new JLabel("para deslizar");
+        lblLinea2.setForeground(new Color(148, 163, 184));
+        lblLinea2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblLinea2.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLinea2.setBounds(15, 270, 180, 20);
+        panelJuego.add(lblLinea2);
+	}
+
+	private void crearLblLinea1() {
+		// Mensaje consejo
+        lblLinea1 = new JLabel("Usa las flechas");
+        lblLinea1.setForeground(new Color(148, 163, 184));
+        lblLinea1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblLinea1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLinea1.setBounds(15, 250, 180, 20);
+        panelJuego.add(lblLinea1);
+	}
+
+	private void crearLblMovimientoSugerido() {
+		// Valor dinamico del movimiento sugerido
+        lblMovimientoSugerido = new JLabel();
+        lblMovimientoSugerido.setForeground(new Color(241, 245, 249));
+        lblMovimientoSugerido.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblMovimientoSugerido.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMovimientoSugerido.setVerticalAlignment(SwingConstants.CENTER);
+        lblMovimientoSugerido.setBackground(new Color(15, 23, 42));
+        lblMovimientoSugerido.setText(juego.getMovimientoSugerido());
+        lblMovimientoSugerido.setBounds(15, 195, 180, 38);
+        panelJuego.add(lblMovimientoSugerido);
+	}
+
+	private void crearLblJugadaSugerida() {
+		lblJugadaSugerida = new JLabel("Jugada Sugerida:");
+        lblJugadaSugerida.setForeground(new Color(203, 213, 225));
+        lblJugadaSugerida.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblJugadaSugerida.setBounds(15, 170, 180, 20);
+        panelJuego.add(lblJugadaSugerida);
+	}
+
+	private void crearLblProximaFichaValor() {
+		lblProximaFichaValor = new JLabel();
+        lblProximaFichaValor.setForeground(new Color(15, 23, 42));
+        lblProximaFichaValor.setHorizontalAlignment(SwingConstants.CENTER);
+        lblProximaFichaValor.setVerticalAlignment(SwingConstants.CENTER);
+        lblProximaFichaValor.setOpaque(true);
+        lblProximaFichaValor.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblProximaFichaValor.setBounds(15, 115, 180, 38);
+        lblProximaFichaValor.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
+        panelJuego.add(lblProximaFichaValor);
+	}
+
+	private void crearLblProximaFicha() {
+		// Aviso de proxima ficha 
+        lblProximaFicha = new JLabel("Próxima Ficha:");
+        lblProximaFicha.setForeground(new Color(203, 213, 225));
+        lblProximaFicha.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblProximaFicha.setBounds(15, 90, 180, 20);
+        panelJuego.add(lblProximaFicha);
+	}
+
+	private void crearLblNombreJugador(String nombreJugador) {
+		// Nombre de usuario 
+        lblNombreUsuario = new JLabel(nombreJugador);
+        lblNombreUsuario.setForeground(new Color(16, 185, 129)); // Verde 
+        lblNombreUsuario.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblNombreUsuario.setBackground(new Color(15, 23, 42));
+        lblNombreUsuario.setOpaque(true);
+        lblNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNombreUsuario.setVerticalAlignment(SwingConstants.CENTER);
+        lblNombreUsuario.setBounds(15, 42, 180, 32);
+        lblNombreUsuario.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
+        panelJuego.add(lblNombreUsuario);
+	}
+
+	private void crearLblSuerte() {
+		lblSuerte = new JLabel("¡A Jugar!");
+        lblSuerte.setForeground(new Color(248, 250, 252));
+        lblSuerte.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lblSuerte.setBounds(15, 12, 180, 25);
+        panelJuego.add(lblSuerte);
+	}
+
+	private void configurarPantalla(String nivel) {
+		setTitle("Threes! — Partida (" + nivel + ")");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 650, 420);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        
+        panelFondo = new JPanel();
+        setContentPane(panelFondo);
+        panelFondo.setLayout(new BorderLayout(0, 0));
+        
+        // Habilitamos al panel para recibir el foco del teclado
+        panelFondo.setFocusable(true);
+        panelFondo.requestFocusInWindow();
+        
+        // Panel lateral derecho 
+        panelJuego = new JPanel();
+        panelJuego.setPreferredSize(new Dimension(210, 0));
+        panelJuego.setBackground(new Color(30, 41, 59));
+        panelFondo.add(panelJuego, BorderLayout.EAST);
+        panelJuego.setLayout(null);
+	}
 
     private void actualizarVista() {
         Tablero tablero = juego.getTablero();

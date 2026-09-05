@@ -17,7 +17,56 @@ public class PantallaBienvenida extends JFrame {
     private JPanel panelFondo;
 
     public PantallaBienvenida() {
-        setTitle("Threes! — Menu");
+        configurarPantalla();
+        crearBtnMenu();
+        crearBtnSalir();
+        crearFooter();
+    }
+
+	private void crearFooter() {
+		JLabel lblFooter = new JLabel("Combina los tres • Desliza para combinar • Suerte!", SwingConstants.CENTER);
+        lblFooter.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        lblFooter.setForeground(Color.GRAY);
+        lblFooter.setBounds(100, 320, 400, 20);
+        panelFondo.add(lblFooter);
+	}
+
+	private void crearBtnSalir() {
+		JButton btnSalir = new JButton("SALIR");
+        btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSalir.setForeground(new Color(100, 100, 100));
+        btnSalir.setBackground(new Color(220, 220, 220));
+        btnSalir.setFocusPainted(false);
+        btnSalir.setBounds(225, 250, 150, 35);
+        
+        btnSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        panelFondo.add(btnSalir);
+	}
+
+	private void crearBtnMenu() {
+		JButton btnMenu = new JButton("MENU");
+        btnMenu.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        btnMenu.setForeground(Color.WHITE);
+        btnMenu.setBackground(new Color(37, 99, 235)); // Azul 
+        btnMenu.setFocusPainted(false);
+        btnMenu.setBounds(160, 200, 280, 40);
+        btnMenu.setOpaque(true);
+        btnMenu.setBorderPainted(false);
+        
+        btnMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	GestorPantallas.clickBtnMenu();
+            }
+        });
+        panelFondo.add(btnMenu);
+	}
+
+	private void configurarPantalla() {
+		setTitle("Threes! — Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400); 
         setLocationRelativeTo(null);
@@ -37,46 +86,5 @@ public class PantallaBienvenida extends JFrame {
         lblImagen.setIcon(new ImageIcon(imagenEscalada)); // Asignamos imagen a jlabel
         lblImagen.setBounds(0, 10, 600, 172);
         panelFondo.add(lblImagen);
-
-        // Botón Jugar
-        JButton btnJugar = new JButton("JUGAR");
-        btnJugar.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        btnJugar.setForeground(Color.WHITE);
-        btnJugar.setBackground(new Color(37, 99, 235)); // Azul 
-        btnJugar.setFocusPainted(false);
-        btnJugar.setBounds(160, 200, 280, 40);
-        btnJugar.setOpaque(true);
-        btnJugar.setBorderPainted(false);
-        
-        btnJugar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PantallaInicial registro = new PantallaInicial(); 
-                registro.setVisible(true);
-                dispose();
-            }
-        });
-        panelFondo.add(btnJugar);
-
-        // Botón Salir
-        JButton btnSalir = new JButton("SALIR");
-        btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        btnSalir.setForeground(new Color(100, 100, 100));
-        btnSalir.setBackground(new Color(220, 220, 220));
-        btnSalir.setFocusPainted(false);
-        btnSalir.setBounds(225, 250, 150, 35);
-        
-        btnSalir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        panelFondo.add(btnSalir);
-
-        // Pie de página
-        JLabel lblFooter = new JLabel("Combina los tres • Desliza para combinar • Suerte!", SwingConstants.CENTER);
-        lblFooter.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        lblFooter.setForeground(Color.GRAY);
-        lblFooter.setBounds(100, 320, 400, 20);
-        panelFondo.add(lblFooter);
-    }
+	}
 }
