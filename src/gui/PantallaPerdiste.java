@@ -1,20 +1,10 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
-import presenter.PartidaTerminadaPresenter;
-
-public class PantallaPartidaTerminada extends JFrame {
-	
-	private PartidaTerminadaPresenter partidaTerminadaPresenter;
-	
-    public PantallaPartidaTerminada(GestorPantallas gestorPantallas, String nombre, int puntajePartida, int tamanioMatriz, String nivel) {
-    	
-    		this.partidaTerminadaPresenter = new PartidaTerminadaPresenter(gestorPantallas);
+public class PantallaPerdiste extends JFrame {
+    public PantallaPerdiste(String nombre, int puntajePartida, int tamanioMatriz, int dimensionVentana, String nivel) {
         
         setTitle("Threes! — Game Over");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,10 +44,13 @@ public class PantallaPartidaTerminada extends JFrame {
         btnJugarDeNuevo.setBackground(new Color(16, 185, 129));
         btnJugarDeNuevo.setBounds(160, 205, 280, 42);
 
-        btnJugarDeNuevo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                		partidaTerminadaPresenter.manejarClickBotonJugarDeNuevo(nombre, tamanioMatriz, nivel);
-            }
+        btnJugarDeNuevo.addActionListener(e -> {
+            logica.ReproductorMusica.reproducirLoop("/audio/backSound.wav");
+            
+            PantallaJuego nuevaPartida = new PantallaJuego(nombre, tamanioMatriz, dimensionVentana, nivel);
+            nuevaPartida.setResizable(false);
+            nuevaPartida.setVisible(true);
+            dispose();
         });
         panel.add(btnJugarDeNuevo);
 
@@ -68,10 +61,10 @@ public class PantallaPartidaTerminada extends JFrame {
         btnVolverMenu.setBackground(new Color(51, 65, 85));
         btnVolverMenu.setBounds(160, 260, 280, 38);
         
-        btnVolverMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                		partidaTerminadaPresenter.manejarClickVolverAlMenu();
-            }
+        btnVolverMenu.addActionListener(e -> {
+            PantallaInicial inicio = new PantallaInicial();
+            inicio.setVisible(true);
+            dispose();
         });
         panel.add(btnVolverMenu);
 
