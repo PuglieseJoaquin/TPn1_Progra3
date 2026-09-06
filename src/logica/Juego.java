@@ -9,13 +9,16 @@ public class Juego {
     private Tablero tablero;
     private int puntaje;
     private boolean gameOver;
-    private static Map<String, Usuario> usuarios = new HashMap<>();
     private Partida partidaActual;
-    private Usuario jugadorActual;
     private String nombreJugador;
     private String nivel;
     private int valorFichaMaximo;
     private int tamanioMatriz;
+    
+    private static ArrayList<Partida> partidas4x4 = new ArrayList<>();
+    private static ArrayList<Partida> partidas5x5 = new ArrayList<>();
+    private static ArrayList<Partida> partidas6x6 = new ArrayList<>();
+    
 
     public Juego(int tamanioMatriz, String nombreJugador, String nivel) {
         this.tablero = new Tablero(tamanioMatriz);
@@ -24,31 +27,13 @@ public class Juego {
         this.nombreJugador = nombreJugador;
         this.nivel = nivel;
         this.partidaActual = new Partida(nombreJugador, puntaje, valorFichaMaximo, nivel);
-        this.jugadorActual = crearUsuario();  
+         
         this.valorFichaMaximo = 0;
         this.tamanioMatriz = tamanioMatriz;
 
+        registrarPartida(partidaActual);
     }
     
-    private Usuario crearUsuario() {
-    	Usuario usuarioActual = usuarios.get(nombreJugador);
-    	
-    	if (usuarioActual == null) {
-    		usuarioActual = new Usuario(nombreJugador);
-    		usuarios.put(nombreJugador, usuarioActual);
-    	}
-
-    	usuarioActual.agregarPartida(partidaActual);
-    	return usuarioActual;
-    }
-    
-    public Usuario getJugadorActual() {
-    	return this.jugadorActual;
-    }
-    
-    public int getTamanioArrayUsuario() {
-    	return usuarios.size();
-    }
     
 	public boolean isGameOver() {
         return gameOver;
@@ -114,16 +99,24 @@ public class Juego {
     	return tablero.movimientoSugerido();
     }
     
-    public static ArrayList<Partida> getTop5Puntajes() {
-        ArrayList<Partida> todasLasPartidas = new ArrayList<>();
 
-        for (Usuario u : usuarios.values()) {
-        	todasLasPartidas.addAll(u.getPartidas());
-        }
-
-        ArrayList<Partida> top5 = obtenerMejores(todasLasPartidas, 5);
-        return top5;
+    public static ArrayList<Partida> getTop5Puntajes(String nivel) {
+        ArrayList<Partida> partidasDelNivel = getPartidasPorNivel(nivel);
+        return obtenerMejores(partidasDelNivel, 5);
     }
+    
+    private static ArrayList<Partida> getPartidasPorNivel(String nivel) {
+    	if(nivel.equals("Clásico 4x4")) 
+    		return partidas4x4;
+    	else if (nivel.equals("Extra 5x5")) {
+    		return partidas5x5;
+		}
+    	else if (nivel.equals("Supremo 6x6")) {
+    		return partidas6x6;
+		}
+    	return new ArrayList<>();
+    }
+       
       
     private static ArrayList<Partida> obtenerMejores(ArrayList<Partida> lista, int cantidad) {
         ArrayList<Partida> partidasAElegir = new ArrayList<>(lista);
@@ -148,5 +141,18 @@ public class Juego {
             }
         }
         return mejor;
+    }
+    
+    private void registrarPartida(Partida partida) {
+    	 String nivel = partida.getNivel();
+    	    if (nivel.equals("Clásico 4x4")) {
+    	        partidas4x4.add(partida);
+    	        
+    	    } else if (nivel.equals("Extra 5x5")) {
+    	        partidas5x5.add(partida);
+    	    
+    	    } else if (nivel.equals("Supremo 6x6")) {
+    	        partidas6x6.add(partida);
+    	    }
     }
 }

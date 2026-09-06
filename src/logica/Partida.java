@@ -8,8 +8,8 @@ public class Partida {
 	
 	public Partida(String nombreJugador, int puntaje, int valorFichaMaximo, String nivel) {
 		this.nombreJugador = nombreJugador;
-		this.puntaje = 0;
-		this.valorFichaMaximo = 0;
+		this.puntaje = puntaje;
+		this.valorFichaMaximo = valorFichaMaximo;
 		this.nivel = nivel;
 	}
 

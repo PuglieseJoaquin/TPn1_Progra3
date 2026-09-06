@@ -32,22 +32,16 @@ public class MenuPresenter {
 	}
 
 	private void comenzarNivel(String nombre, int nivel) {
-		
-		switch(nivel) {
-
-	    case 0: //"Clásico 4x4"
-	    		gestorPantallas.crearPantallaJuego(nombre, 4, "Clásico");
-	        break;
-	    case 1: //"Extra 5x5"
-	    		gestorPantallas.crearPantallaJuego(nombre, 5, "Extra");
-	        break;
-	    case 2: //"Supremo 6x6"
-	    		gestorPantallas.crearPantallaJuego(nombre, 6, "Supremo");
-	        break;
-	    default:
-	        break;
-    }
-}		
+		if(nivel==0) {
+			gestorPantallas.crearPantallaJuego(nombre, 4, "Clásico 4x4");
+		}
+		else if (nivel==1) {
+			gestorPantallas.crearPantallaJuego(nombre, 5, "Extra 5x5");
+	    
+	    } else if (nivel==2) {
+	    	gestorPantallas.crearPantallaJuego(nombre, 6, "Supremo 6x6");
+	    }
+	}		
 
 	private static boolean esNombreValido(String nombre) {
         return (nombre.length() > 3 && !nombre.isEmpty());

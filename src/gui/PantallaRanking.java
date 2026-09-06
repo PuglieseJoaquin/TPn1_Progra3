@@ -13,67 +13,60 @@ import javax.swing.table.DefaultTableModel;
 import presenter.RankingPresenter;
 
 public class PantallaRanking extends JFrame {
-	
+
     private JPanel panelFondo;
     private JPanel panelBoton;
     private JButton btnVolverAlMenu;
     private RankingPresenter rankingPresenter;
+    private JTabbedPane Solapas;
 
     public PantallaRanking(GestorPantallas gestorPantallas) {
-    	
-    		rankingPresenter = new RankingPresenter(gestorPantallas);
-        configurarPantalla(); 
+
+        rankingPresenter = new RankingPresenter(gestorPantallas);
+        configurarPantalla();
         crearLblTitulo();
-                
-        crearTabla();
+        crearSolapasRanking();
         crearBtnVolverAlMenu();
-        
+
     }
 
-	private void crearBtnVolverAlMenu() {
-		btnVolverAlMenu = new JButton("Volver al menú");
-        btnVolverAlMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        btnVolverAlMenu.setForeground(new Color(241, 245, 249));
-        btnVolverAlMenu.setBackground(new Color(51, 65, 85));
-        
-        btnVolverAlMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	rankingPresenter.manejarClickVolverAlMenu();
-            }
-        });
-        
-        panelBoton = new JPanel();
-        panelBoton.setBackground(new Color(30, 41, 59));
-        panelBoton.add(btnVolverAlMenu);
-        panelFondo.add(panelBoton, BorderLayout.SOUTH);
-        setVisible(true);
-	}
+    private void crearSolapasRanking() {
+        Solapas = new JTabbedPane();
+        Solapas.setBackground(new Color(30, 41, 59));
+        Solapas.setForeground(new Color(241, 245, 249));
 
-	private void crearTabla() {
-        List<Object[]> filas = rankingPresenter.getFilasRanking();
+        Solapas.addTab("Clásico 4x4", crearPanelTabla("Clásico 4x4"));
+        Solapas.addTab("Extra 5x5", crearPanelTabla("Extra 5x5"));
+        Solapas.addTab("Supremo 6x6", crearPanelTabla("Supremo 6x6"));
+        // en Clásico 4x4
+        Solapas.setSelectedIndex(0);
+
+        panelFondo.add(Solapas, BorderLayout.CENTER);
+    }
+
+    private JScrollPane crearPanelTabla(String nivel) {
+        List<Object[]> filas = rankingPresenter.getFilasRanking(nivel);
+
         DefaultTableModel modeloDeTabla = new DefaultTableModel(
             new String[]{"Puesto", "Jugador", "Puntaje", "Ficha Máxima", "Nivel"}, 0
         );
 
         for (Object[] fila : filas) {
-        		modeloDeTabla.addRow(fila);
+            modeloDeTabla.addRow(fila);
         }
 
         JTable tabla = new JTable(modeloDeTabla);
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
-
         tabla.setShowVerticalLines(false);
         tabla.setGridColor(new Color(51, 65, 85));
         tabla.setBackground(new Color(15, 23, 42));
         tabla.setForeground(new Color(241, 245, 249));
         tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         tabla.setRowHeight(32);
-        
-        // Encabezado de la tabla
+
         tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
         tabla.getTableHeader().setBackground(new Color(51, 65, 85));
         tabla.getTableHeader().setForeground(new Color(248, 250, 252));
-        
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         centerRenderer.setBackground(new Color(15, 23, 42));
@@ -82,11 +75,30 @@ public class PantallaRanking extends JFrame {
         for (int i = 0; i < tabla.getColumnCount(); i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        
+
         JScrollPane scroll = new JScrollPane(tabla);
         scroll.getViewport().setBackground(new Color(15, 23, 42));
         scroll.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
-        panelFondo.add(scroll, BorderLayout.CENTER);
+        return scroll;
+    }
+
+	private void crearBtnVolverAlMenu() {
+		btnVolverAlMenu = new JButton("Volver al menú");
+        btnVolverAlMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnVolverAlMenu.setForeground(new Color(241, 245, 249));
+        btnVolverAlMenu.setBackground(new Color(51, 65, 85));
+
+        btnVolverAlMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	rankingPresenter.manejarClickVolverAlMenu();
+            }
+        });
+
+        panelBoton = new JPanel();
+        panelBoton.setBackground(new Color(30, 41, 59));
+        panelBoton.add(btnVolverAlMenu);
+        panelFondo.add(panelBoton, BorderLayout.SOUTH);
+        setVisible(true);
 	}
 
 	private void crearLblTitulo() {
@@ -104,7 +116,7 @@ public class PantallaRanking extends JFrame {
         setResizable(false);
 
         panelFondo = new JPanel();
-        panelFondo.setBackground(new Color(30, 41, 59)); 
+        panelFondo.setBackground(new Color(30, 41, 59));
         panelFondo.setLayout(new BorderLayout(10, 10));
         panelFondo.setBorder(new EmptyBorder(15, 15, 15, 15));
         setContentPane(panelFondo);

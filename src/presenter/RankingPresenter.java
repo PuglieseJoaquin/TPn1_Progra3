@@ -19,9 +19,9 @@ public class RankingPresenter {
 		gestorPantallas.crearPantallaMenu();	
 	}
 
-	public List<Object[]> getFilasRanking() {
+	public List<Object[]> getFilasRanking(String nivel) {
 		
-	    ArrayList<Partida> partidas = Juego.getTop5Puntajes();
+	    ArrayList<Partida> partidas = Juego.getTop5Puntajes(nivel);
 	    
 	    List<Object[]> filas = new ArrayList<>();
 	    
