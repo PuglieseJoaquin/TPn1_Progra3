@@ -1,30 +1,32 @@
 package gui;
 
 import java.awt.*;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import logica.Juego;
-import logica.Partida;
+import presenter.RankingPresenter;
 
 public class PantallaRanking extends JFrame {
 	
     private JPanel panelFondo;
     private JPanel panelBoton;
     private JButton btnVolverAlMenu;
+    private RankingPresenter rankingPresenter;
 
-    public PantallaRanking() {
+    public PantallaRanking(GestorPantallas gestorPantallas) {
+    	
+    		rankingPresenter = new RankingPresenter(gestorPantallas);
         configurarPantalla(); 
         crearLblTitulo();
-        
-        ArrayList<Partida> top5Puntajes = Juego.getTop5Puntajes(); //Aca la estructura de datos vive en la VIEW, hay que moverlo a la logica
-        
-        crearTabla(top5Puntajes);
+                
+        crearTabla();
         crearBtnVolverAlMenu();
-        
         
     }
 
@@ -33,9 +35,11 @@ public class PantallaRanking extends JFrame {
         btnVolverAlMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnVolverAlMenu.setForeground(new Color(241, 245, 249));
         btnVolverAlMenu.setBackground(new Color(51, 65, 85));
-
-        btnVolverAlMenu.addActionListener(e -> {
-            GestorPantallas.clickBtnMenu();
+        
+        btnVolverAlMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	rankingPresenter.manejarClickVolverAlMenu();
+            }
         });
         
         panelBoton = new JPanel();
@@ -45,16 +49,19 @@ public class PantallaRanking extends JFrame {
         setVisible(true);
 	}
 
-	private void crearTabla(ArrayList<Partida> top5Puntajes) {
-        String[] columnas = {"Puesto", "Nombre", "Puntaje", "Ficha Mayor", "Nivel"};
-        DefaultTableModel modeloDeTabla = new DefaultTableModel(columnas, 0);
+	private void crearTabla() {
+        List<Object[]> filas = rankingPresenter.getFilasRanking();
+        DefaultTableModel modeloDeTabla = new DefaultTableModel(
+            new String[]{"Puesto", "Jugador", "Puntaje", "Ficha Máxima", "Nivel"}, 0
+        );
 
-        for (int i = 0; i < top5Puntajes.size(); i++) {
-            Partida p = top5Puntajes.get(i);
-            modeloDeTabla.addRow(new Object[]{i + 1, p.getNombreJugador(), p.getPuntaje(), p.getValorFichaMaximo(), p.getNivel()});
+        for (Object[] fila : filas) {
+        		modeloDeTabla.addRow(fila);
         }
-            
+
         JTable tabla = new JTable(modeloDeTabla);
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
+
         tabla.setShowVerticalLines(false);
         tabla.setGridColor(new Color(51, 65, 85));
         tabla.setBackground(new Color(15, 23, 42));

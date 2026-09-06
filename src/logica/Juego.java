@@ -15,6 +15,7 @@ public class Juego {
     private String nombreJugador;
     private String nivel;
     private int valorFichaMaximo;
+    private int tamanioMatriz;
 
     public Juego(int tamanioMatriz, String nombreJugador, String nivel) {
         this.tablero = new Tablero(tamanioMatriz);
@@ -25,6 +26,7 @@ public class Juego {
         this.partidaActual = new Partida(nombreJugador, puntaje, valorFichaMaximo, nivel);
         this.jugadorActual = crearUsuario();  
         this.valorFichaMaximo = 0;
+        this.tamanioMatriz = tamanioMatriz;
 
     }
     
@@ -78,6 +80,23 @@ public class Juego {
 
     public Tablero getTablero() {
         return tablero;
+    }
+    
+    public int[][] getMatrizValoresDeFichas() {  	
+    		
+    		int[][] valores = new int[tamanioMatriz][tamanioMatriz];
+    		
+    		for (int fila = 0; fila < tamanioMatriz; fila++) {
+    			for (int col = 0; col < tamanioMatriz; col++) {
+    				Ficha ficha = tablero.getFicha(fila, col);
+    				valores[fila][col] = (ficha == null) ? 0 : ficha.getValor();
+    			}
+    		}
+    		return valores;
+    }
+    
+    public int getProximoValorFicha() {
+    		return tablero.getProximoValorFicha();
     }
     
     public int getPuntaje() {

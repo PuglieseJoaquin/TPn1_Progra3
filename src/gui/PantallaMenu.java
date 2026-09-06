@@ -4,12 +4,17 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class PantallaMenu extends JFrame {
+import presenter.MenuPresenter;
+
+public class PantallaMenu extends JFrame implements MenuVista{
 
     private JPanel panelFondo;
     private JTextField textNombre;
+    private MenuPresenter menuPresenter;
 
-    public PantallaMenu() {
+    public PantallaMenu(GestorPantallas gestorPantallas) {
+    	
+    		menuPresenter = new MenuPresenter(this, gestorPantallas);
         configurarPantalla();
         crearLblNombre();
         crearTextNombre();
@@ -19,8 +24,7 @@ public class PantallaMenu extends JFrame {
         crearBtnRanking();
         crearBtnSalir();
     }
-
-    
+ 
 	private void crearBtnSalir() {
 		JButton btnSalir = new JButton("SALIR");
         btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -31,7 +35,7 @@ public class PantallaMenu extends JFrame {
         
         btnSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                menuPresenter.manejarClickBotonSalir();;
             }
         });
         panelFondo.add(btnSalir);
@@ -46,9 +50,7 @@ public class PantallaMenu extends JFrame {
         
         btnRanking.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                PantallaRanking ranking = new PantallaRanking();
-                ranking.setVisible(true);
-                dispose();
+                menuPresenter.manejarClickBotonRanking();
             }
         });
         panelFondo.add(btnRanking);
@@ -66,7 +68,7 @@ public class PantallaMenu extends JFrame {
         
         btnStart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	GestorPantallas.clickBtnJuego(textNombre.getText(), comboBoxLevels.getSelectedIndex()); //Le paso el nombre y el nivel
+            	menuPresenter.manejarClickBotonComenzarJuego(textNombre.getText(), comboBoxLevels.getSelectedIndex());
             }
         });
         panelFondo.add(btnStart);
@@ -129,16 +131,29 @@ public class PantallaMenu extends JFrame {
         setResizable(false);
 
         panelFondo = new JPanel();
-        panelFondo.setBackground(new Color(30, 41, 59)); // gris oscuro
+        panelFondo.setBackground(new Color(30, 41, 59));
         setContentPane(panelFondo);
         panelFondo.setLayout(null);
 
-        // Título
         JLabel lblTitulo = new JLabel("TRABAJO PRÁCTICO 1 : THREES");
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20));
         lblTitulo.setForeground(new Color(248, 250, 252));
         lblTitulo.setBounds(50, 30, 500, 35);
         panelFondo.add(lblTitulo);
+	}
+	
+
+	@Override
+	public void mostrarMensajeError() {
+        JOptionPane.showMessageDialog(null, "Tu nombre debe tener al menos 3 letras.", "Nombre no válido",
+                JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	@Override
+	public void mostrarMensajeReglas() {
+		JOptionPane.showMessageDialog(null,
+                "Suma 1 + 2 para comenzar.\nLuego... combina múltiplos de 3!",
+                "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);	
 	}
 }

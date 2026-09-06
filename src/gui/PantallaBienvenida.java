@@ -12,11 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class PantallaBienvenida extends JFrame {
+import presenter.BienvenidaPresenter;
 
+
+public class PantallaBienvenida extends JFrame {
+	
+	private BienvenidaPresenter bienvenidaPresenter;
     private JPanel panelFondo;
 
-    public PantallaBienvenida() {
+    public PantallaBienvenida(GestorPantallas gestorPantallas) {
+    		bienvenidaPresenter = new BienvenidaPresenter(gestorPantallas);
         configurarPantalla();
         crearBtnMenu();
         crearBtnSalir();
@@ -41,7 +46,7 @@ public class PantallaBienvenida extends JFrame {
         
         btnSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                bienvenidaPresenter.manejarClickBotonSalir();
             }
         });
         panelFondo.add(btnSalir);
@@ -59,7 +64,7 @@ public class PantallaBienvenida extends JFrame {
         
         btnMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	GestorPantallas.clickBtnMenu();
+            		bienvenidaPresenter.manejarClickBotonMenu();
             }
         });
         panelFondo.add(btnMenu);
@@ -77,13 +82,12 @@ public class PantallaBienvenida extends JFrame {
         setContentPane(panelFondo);
         panelFondo.setLayout(null);
 
-        // Buscamos archivo y adaptamos la imagen 
         JLabel lblImagen = new JLabel();
         lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 
         ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/imagenes/threes.jpg"));
-        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(600, 292, Image.SCALE_SMOOTH); // Evitamos que salga pixeleado
-        lblImagen.setIcon(new ImageIcon(imagenEscalada)); // Asignamos imagen a jlabel
+        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(600, 292, Image.SCALE_SMOOTH);
+        lblImagen.setIcon(new ImageIcon(imagenEscalada));
         lblImagen.setBounds(0, 10, 600, 172);
         panelFondo.add(lblImagen);
 	}
