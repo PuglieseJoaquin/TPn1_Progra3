@@ -2,8 +2,7 @@ package presentador;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import modelo.Juego;
+import modelo.Ranking;
 import modelo.Partida;
 import vista.GestorPantallas;
 
@@ -21,7 +20,7 @@ public class RankingPresentador {
 
 	public List<Object[]> getFilasRanking(String nivel) {
 		
-	    ArrayList<Partida> partidas = Juego.getTop5Puntajes(nivel);
+	    ArrayList<Partida> partidas = Ranking.getTop5Puntajes(nivel);
 	    
 	    List<Object[]> filas = new ArrayList<>();
 	    
