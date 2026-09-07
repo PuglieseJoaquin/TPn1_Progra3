@@ -1,4 +1,4 @@
-package gui;
+package vista;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -6,11 +6,11 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
-import presenter.JuegoPresenter;
+import presentador.JuegoPresentador;
 
 public class PantallaJuego extends JFrame implements JuegoVista {
 
-	private JuegoPresenter juegoPresenter;
+	private JuegoPresentador juegoPresentador;
 
 	private JPanel panelFondo;
 	private JPanel panelJuego;
@@ -26,7 +26,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 
 	public PantallaJuego(GestorPantallas gestorPantallas, String nombreJugador, int tamanioMatriz, String nivel) {
 
-		juegoPresenter = new JuegoPresenter(this, gestorPantallas, nombreJugador, tamanioMatriz, nivel);
+		juegoPresentador = new JuegoPresentador(this, gestorPantallas, nombreJugador, tamanioMatriz, nivel);
 
 		configurarPantalla(nivel);
 
@@ -57,7 +57,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int evento = e.getKeyCode();
-				juegoPresenter.manejarEventoTeclaDeMovimiento(evento);
+				juegoPresentador.manejarEventoTeclaDeMovimiento(evento);
 			}
 		});
 
@@ -77,7 +77,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 			panelMatriz.add(cuadrado);
 		}
 
-		juegoPresenter.actualizarVista();
+		juegoPresentador.actualizarVista();
 	}
 
 	private void crearLblLinea1() {

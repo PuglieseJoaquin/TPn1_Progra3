@@ -1,11 +1,11 @@
-package presenter;
+package presentador;
 
-import gui.GestorPantallas;
+import vista.GestorPantallas;
 
-public class BienvenidaPresenter {
+public class BienvenidaPresentador {
 	private GestorPantallas gestorPantallas;
 	
-	public BienvenidaPresenter(GestorPantallas gestorPantallas) {
+	public BienvenidaPresentador(GestorPantallas gestorPantallas) {
 		this.gestorPantallas = gestorPantallas;	
 	}
 

@@ -1,4 +1,4 @@
-package logica;
+package modelo;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class Juego {
         } else {
             gameOver = true;
             puntaje = calcularPuntaje();
-            
+            ReproductorMusica.detener();
         }
     }
 

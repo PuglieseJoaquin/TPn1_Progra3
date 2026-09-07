@@ -1,4 +1,4 @@
-package gui;
+package vista;
 
 import java.awt.*;
 import java.util.List;
@@ -10,38 +10,38 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import presenter.RankingPresenter;
+import presentador.RankingPresentador;
 
 public class PantallaRanking extends JFrame {
 
     private JPanel panelFondo;
     private JPanel panelBoton;
     private JButton btnVolverAlMenu;
-    private RankingPresenter rankingPresenter;
-    private JTabbedPane Solapas;
+    private RankingPresentador rankingPresenter;
+    private JTabbedPane solapasRanking;
 
     public PantallaRanking(GestorPantallas gestorPantallas) {
 
-        rankingPresenter = new RankingPresenter(gestorPantallas);
+        rankingPresenter = new RankingPresentador(gestorPantallas);
         configurarPantalla();
         crearLblTitulo();
-        crearSolapasRanking();
+        crearPestanasRanking();
         crearBtnVolverAlMenu();
 
     }
 
-    private void crearSolapasRanking() {
-        Solapas = new JTabbedPane();
-        Solapas.setBackground(new Color(30, 41, 59));
-        Solapas.setForeground(new Color(241, 245, 249));
+    private void crearPestanasRanking() {
+        solapasRanking = new JTabbedPane();
+        solapasRanking.setBackground(new Color(30, 41, 59));
+        solapasRanking.setForeground(new Color(241, 245, 249));
 
-        Solapas.addTab("Clásico 4x4", crearPanelTabla("Clásico 4x4"));
-        Solapas.addTab("Extra 5x5", crearPanelTabla("Extra 5x5"));
-        Solapas.addTab("Supremo 6x6", crearPanelTabla("Supremo 6x6"));
-        // en Clásico 4x4
-        Solapas.setSelectedIndex(0);
+        solapasRanking.addTab("Clásico 4x4", crearPanelTabla("Clásico 4x4"));
+        solapasRanking.addTab("Extra 5x5", crearPanelTabla("Extra 5x5"));
+        solapasRanking.addTab("Supremo 6x6", crearPanelTabla("Supremo 6x6"));
+        
+        solapasRanking.setSelectedIndex(0);
 
-        panelFondo.add(Solapas, BorderLayout.CENTER);
+        panelFondo.add(solapasRanking, BorderLayout.CENTER);
     }
 
     private JScrollPane crearPanelTabla(String nivel) {

@@ -1,14 +1,14 @@
-package presenter;
+package presentador;
 
-import gui.GestorPantallas;
-import gui.MenuVista;
-import logica.ReproductorMusica;
+import modelo.ReproductorMusica;
+import vista.GestorPantallas;
+import vista.MenuVista;
 
-public class MenuPresenter {
+public class MenuPresentador {
 	private GestorPantallas gestorPantallas;
 	private MenuVista menuVista;
 	
-	public MenuPresenter(MenuVista menuVista, GestorPantallas gestorPantallas) {
+	public MenuPresentador(MenuVista menuVista, GestorPantallas gestorPantallas) {
 		this.gestorPantallas = gestorPantallas;
 		this.menuVista = menuVista;
 		

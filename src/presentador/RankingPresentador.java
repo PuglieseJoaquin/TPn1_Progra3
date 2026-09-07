@@ -1,17 +1,17 @@
-package presenter;
+package presentador;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.GestorPantallas;
-import logica.Juego;
-import logica.Partida;
+import modelo.Juego;
+import modelo.Partida;
+import vista.GestorPantallas;
 
-public class RankingPresenter {
+public class RankingPresentador {
 	private GestorPantallas gestorPantallas;
 
 
-	public RankingPresenter(GestorPantallas gestorPantallas) {
+	public RankingPresentador(GestorPantallas gestorPantallas) {
 		this.gestorPantallas = gestorPantallas;	
 	}
 

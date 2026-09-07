@@ -1,4 +1,4 @@
-package gui;
+package vista;
 
 public interface MenuVista {
 	void mostrarMensajeError();

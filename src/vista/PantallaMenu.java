@@ -1,20 +1,20 @@
-package gui;
+package vista;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import presenter.MenuPresenter;
+import presentador.MenuPresentador;
 
 public class PantallaMenu extends JFrame implements MenuVista{
 
     private JPanel panelFondo;
     private JTextField textNombre;
-    private MenuPresenter menuPresenter;
+    private MenuPresentador menuPresentador;
 
     public PantallaMenu(GestorPantallas gestorPantallas) {
     	
-    		menuPresenter = new MenuPresenter(this, gestorPantallas);
+    		menuPresentador = new MenuPresentador(this, gestorPantallas);
         configurarPantalla();
         crearLblNombre();
         crearTextNombre();
@@ -35,7 +35,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         
         btnSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                menuPresenter.manejarClickBotonSalir();;
+                menuPresentador.manejarClickBotonSalir();
             }
         });
         panelFondo.add(btnSalir);
@@ -50,7 +50,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         
         btnRanking.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                menuPresenter.manejarClickBotonRanking();
+                menuPresentador.manejarClickBotonRanking();
             }
         });
         panelFondo.add(btnRanking);
@@ -68,7 +68,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         
         btnStart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	menuPresenter.manejarClickBotonComenzarJuego(textNombre.getText(), comboBoxLevels.getSelectedIndex());
+            	menuPresentador.manejarClickBotonComenzarJuego(textNombre.getText(), comboBoxLevels.getSelectedIndex());
             }
         });
         panelFondo.add(btnStart);

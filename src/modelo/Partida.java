@@ -1,4 +1,4 @@
-package logica;
+package modelo;
 
 public class Partida {
 	private String nombreJugador;

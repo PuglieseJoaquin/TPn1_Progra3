@@ -1,4 +1,4 @@
-package gui;
+package vista;
 
 public interface JuegoVista {
 	void mostrarTablero(int[][] valoresDeFichas);

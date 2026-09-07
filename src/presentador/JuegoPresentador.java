@@ -1,18 +1,18 @@
-package presenter;
+package presentador;
 
-import gui.GestorPantallas;
-import gui.JuegoVista;
-import logica.Juego;
+import modelo.Juego;
+import vista.GestorPantallas;
+import vista.JuegoVista;
 
-public class JuegoPresenter {
+public class JuegoPresentador {
 	private GestorPantallas gestorPantallas;
 	private Juego juego;
 	private JuegoVista juegoVista;
-	private 	String nombreJugador;
+	private String nombreJugador;
 	private int tamanioMatriz;
 	private String nivel;
 	
-	public JuegoPresenter(JuegoVista vista, GestorPantallas gestorPantallas, String nombreJugador, int tamanioMatriz, String nivel) {
+	public JuegoPresentador(JuegoVista vista, GestorPantallas gestorPantallas, String nombreJugador, int tamanioMatriz, String nivel) {
 		this.gestorPantallas = gestorPantallas;
 		this.juegoVista = vista;
 		this.juego = new Juego(tamanioMatriz, nombreJugador, nivel);

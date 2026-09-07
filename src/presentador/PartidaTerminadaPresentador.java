@@ -1,12 +1,12 @@
-package presenter;
+package presentador;
 
-import gui.GestorPantallas;
+import vista.GestorPantallas;
 
-public class PartidaTerminadaPresenter {
+public class PartidaTerminadaPresentador {
 	private GestorPantallas gestorPantallas;
 
 
-	public PartidaTerminadaPresenter(GestorPantallas gestorPantallas) {
+	public PartidaTerminadaPresentador(GestorPantallas gestorPantallas) {
 		this.gestorPantallas = gestorPantallas;	
 	}
 

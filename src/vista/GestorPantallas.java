@@ -1,6 +1,6 @@
-package gui;
+package vista;
+
 import javax.swing.JFrame;
-import javax.swing.UIManager;
 
 public class GestorPantallas implements GestorInterfaz {
 
@@ -9,17 +9,6 @@ public class GestorPantallas implements GestorInterfaz {
 	private PantallaJuego juego;
 	private PantallaPartidaTerminada partidaTerminada;
 	private PantallaRanking ranking;
-	
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-			}	catch(Exception e){System.out.println(e);
-				}
-		
-		GestorPantallas gestorPantalla = new GestorPantallas();
-		gestorPantalla.crearPantallaBienvenida();	
-		
-		}
 	
 	public void crearPantallaMenu() {
 		 menu = new PantallaMenu(this);
