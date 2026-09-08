@@ -44,7 +44,7 @@ public class MenuPresentador {
 	}		
 
 	private static boolean esNombreValido(String nombre) {
-        return (nombre.length() > 3 && !nombre.isEmpty());
+        return (nombre.length() >= 3);
     }
 
 	public void manejarClickBotonRanking() {

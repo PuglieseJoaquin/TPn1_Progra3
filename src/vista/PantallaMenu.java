@@ -11,53 +11,88 @@ public class PantallaMenu extends JFrame implements MenuVista{
     private JPanel panelFondo;
     private JTextField textNombre;
     private MenuPresentador menuPresentador;
+	private JLabel lblNombre;
+	private JLabel lblTitulo;
+	private JButton btnSalir;
+	private JComboBox<String> comboBoxLevels;
+	private JButton btnStart;
+	private JButton btnRanking;
+	private JLabel lblNivel;
 
     public PantallaMenu(GestorPantallas gestorPantallas) {
-    	
     		menuPresentador = new MenuPresentador(this, gestorPantallas);
+    		
         configurarPantalla();
         crearLblNombre();
         crearTextNombre();
         crearLblNivel();
-        JComboBox<String> comboBoxLevels = crearComboNiveles();
-        crearBtnEmpezarJuego(comboBoxLevels);
+        comboBoxLevels = crearComboNiveles();
+        crearBtnEmpezarJuego();
         crearBtnRanking();
         crearBtnSalir();
     }
- 
+    
+	private void configurarPantalla() {
+		setTitle("Threes! — Menú Principal");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 600, 400);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        panelFondo = new JPanel();
+        panelFondo.setBackground(new Color(30, 41, 59));
+        setContentPane(panelFondo);
+        panelFondo.setLayout(null);
+
+        lblTitulo = new JLabel("TRABAJO PRÁCTICO 1 : THREES");
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        lblTitulo.setForeground(new Color(248, 250, 252));
+        lblTitulo.setBounds(50, 30, 500, 35);
+        panelFondo.add(lblTitulo);
+	}
+	
 	private void crearBtnSalir() {
-		JButton btnSalir = new JButton("SALIR");
+		btnSalir = new JButton("SALIR");
         btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btnSalir.setForeground(new Color(100, 100, 100));
         btnSalir.setBackground(new Color(220, 220, 220));
         btnSalir.setFocusPainted(false);
         btnSalir.setBounds(221, 315, 150, 35);
         
+        agregarListenerBtnSalir();
+        panelFondo.add(btnSalir);	
+	}
+
+	private void agregarListenerBtnSalir() {
         btnSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 menuPresentador.manejarClickBotonSalir();
             }
         });
-        panelFondo.add(btnSalir);
 	}
 
 	private void crearBtnRanking() {
-		JButton btnRanking = new JButton("Ranking");
+		btnRanking = new JButton("Ranking");
         btnRanking.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnRanking.setForeground(Color.WHITE); 
         btnRanking.setBackground(new Color(51, 65, 85));   
         btnRanking.setBounds(160, 265, 280, 38);
         
+        agregarListenerBtnRanking();
+        panelFondo.add(btnRanking);
+	}
+
+	private void agregarListenerBtnRanking() {
         btnRanking.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 menuPresentador.manejarClickBotonRanking();
             }
         });
-        panelFondo.add(btnRanking);
 	}
 
-	private void crearBtnEmpezarJuego(JComboBox<String> comboBoxLevels) {
-		JButton btnStart = new JButton("Empezar el Juego");
+	private void crearBtnEmpezarJuego() {
+		btnStart = new JButton("Empezar el Juego");
         btnStart.setFont(new Font("Segoe UI", Font.BOLD, 15));
         btnStart.setForeground(Color.WHITE);
         btnStart.setBackground(new Color(16, 185, 129));
@@ -66,16 +101,24 @@ public class PantallaMenu extends JFrame implements MenuVista{
         btnStart.setBounds(160, 210, 280, 42);
         btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
-        btnStart.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	menuPresentador.manejarClickBotonComenzarJuego(textNombre.getText(), comboBoxLevels.getSelectedIndex());
-            }
-        });
+        agregarListenerBtnStart();
         panelFondo.add(btnStart);
 	}
 
+	private void agregarListenerBtnStart() {
+        btnStart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            	String nombreJugador = textNombre.getText();
+            	int nivelElegido = comboBoxLevels.getSelectedIndex();
+            	
+            	menuPresentador.manejarClickBotonComenzarJuego(nombreJugador, nivelElegido);
+            }
+        });
+	}
+
 	private JComboBox<String> crearComboNiveles() {
-		JComboBox<String> comboBoxLevels = new JComboBox<String>();
+		comboBoxLevels = new JComboBox<String>();
         comboBoxLevels.setFont(new Font("Segoe UI", Font.BOLD, 14));
         comboBoxLevels.setForeground(new Color(15, 23, 42));
         comboBoxLevels.setBackground(new Color(241, 245, 249));
@@ -90,7 +133,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
 	}
 
 	private void crearLblNivel() {
-		JLabel lblNivel = new JLabel("ELEGIR NIVEL");
+		lblNivel = new JLabel("ELEGIR NIVEL");
         lblNivel.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblNivel.setForeground(new Color(203, 213, 225));
         lblNivel.setBounds(340, 95, 180, 22);
@@ -104,6 +147,11 @@ public class PantallaMenu extends JFrame implements MenuVista{
         textNombre.setBackground(new Color(241, 245, 249));
         textNombre.setHorizontalAlignment(SwingConstants.CENTER);
         textNombre.setBounds(60, 122, 200, 38);
+        
+        agregarListenerTextNombre();
+	}
+
+	private void agregarListenerTextNombre() {
         textNombre.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -116,33 +164,12 @@ public class PantallaMenu extends JFrame implements MenuVista{
 	}
 
 	private void crearLblNombre() {
-		JLabel lblNombre = new JLabel("INGRESE SU NOMBRE:");
+		lblNombre = new JLabel("INGRESE SU NOMBRE:");
         lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblNombre.setForeground(new Color(203, 213, 225));
         lblNombre.setBounds(60, 95, 200, 22);
         panelFondo.add(lblNombre);
 	}
-
-	private void configurarPantalla() {
-		setTitle("Threes! — Menú Principal");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 400);
-        setLocationRelativeTo(null);
-        setResizable(false);
-
-        panelFondo = new JPanel();
-        panelFondo.setBackground(new Color(30, 41, 59));
-        setContentPane(panelFondo);
-        panelFondo.setLayout(null);
-
-        JLabel lblTitulo = new JLabel("TRABAJO PRÁCTICO 1 : THREES");
-        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        lblTitulo.setForeground(new Color(248, 250, 252));
-        lblTitulo.setBounds(50, 30, 500, 35);
-        panelFondo.add(lblTitulo);
-	}
-	
 
 	@Override
 	public void mostrarMensajeError() {

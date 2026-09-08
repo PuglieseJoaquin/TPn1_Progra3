@@ -2,7 +2,6 @@ package modelo;
 
 import java.awt.event.KeyEvent;
 
-
 public class Juego {
     private Tablero tablero;
     private int puntaje;
@@ -11,9 +10,6 @@ public class Juego {
     private int valorFichaMaximo;
     private int tamanioMatriz;
     
-   
-    
-
     public Juego(int tamanioMatriz, String nombreJugador, String nivel) {
         this.tablero = new Tablero(tamanioMatriz);
         this.puntaje = 0;
@@ -22,15 +18,14 @@ public class Juego {
         this.valorFichaMaximo = 0;
         this.tamanioMatriz = tamanioMatriz;
     }
-    
-    
+     
 	public boolean isGameOver() {
         return gameOver;
     }
 	
     public void mover(int codigoTecla) {
     	
-        if (!gameOver && (!tablero.estaCompleto() || tablero.hayMovimientosPosibles())) {
+        if (esPartidaAunValida()) {
             switch (codigoTecla) {
                 case KeyEvent.VK_RIGHT:
                     tablero.moverDerecha();
@@ -46,15 +41,19 @@ public class Juego {
                     break;
             }
         } else {
-            gameOver = true;
-            puntaje = calcularPuntaje();
-            Ranking.registrarPartida(partidaActual);
-            ReproductorMusica.detener();
+            configurarPartidaTerminada();
         }
     }
-
-    public Tablero getTablero() {
-        return tablero;
+    
+    private boolean esPartidaAunValida() {
+    		return !gameOver && (!tablero.estaCompleto() || tablero.hayMovimientosPosibles());
+    }
+    
+    private void configurarPartidaTerminada() {
+        gameOver = true;
+        puntaje = calcularPuntaje();
+        Ranking.registrarPartida(partidaActual);
+        ReproductorMusica.detener();
     }
     
     public int[][] getMatrizValoresDeFichas() {  	
@@ -75,20 +74,17 @@ public class Juego {
     }
     
     public int getPuntaje() {
-    	return puntaje;
+    		return puntaje;
     }
 
     public int calcularPuntaje() {
-    	puntaje = tablero.calcularPuntaje();
-    	partidaActual.setPuntaje(puntaje);
-    	partidaActual.setValorFichaMaximo(tablero.getValorMaximo());
-    	return this.puntaje;
+	    	puntaje = tablero.calcularPuntaje();
+	    	partidaActual.setPuntaje(puntaje);
+	    	partidaActual.setValorFichaMaximo(tablero.getValorMaximo());
+	    	return this.puntaje;
     }
     
     public String getMovimientoSugerido() {
-    	return tablero.movimientoSugerido();
-    }
-    
-
-   
+    		return tablero.movimientoSugerido();
+    } 
 }

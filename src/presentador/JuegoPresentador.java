@@ -1,5 +1,7 @@
 package presentador;
 
+import java.awt.event.KeyEvent;
+
 import modelo.Juego;
 import vista.GestorPantallas;
 import vista.JuegoVista;
@@ -22,13 +24,22 @@ public class JuegoPresentador {
 	}
 		
 	public void manejarEventoTeclaDeMovimiento(int codigoTecla) {
-		juego.mover(codigoTecla);
-		actualizarVista();
+		if (esTeclaValida(codigoTecla)) {
+			juego.mover(codigoTecla);
+			actualizarVista();
+		}	
 		
 		if (juego.isGameOver()) {
 			int puntaje = juego.getPuntaje();
 			gestorPantallas.crearPantallaPartidaTerminada(nombreJugador, puntaje, tamanioMatriz, nivel);
 		}
+	}
+	
+	public boolean esTeclaValida(int codigoTecla) {
+		return codigoTecla == KeyEvent.VK_RIGHT ||
+	            codigoTecla == KeyEvent.VK_LEFT ||
+	            codigoTecla == KeyEvent.VK_UP ||
+	            codigoTecla == KeyEvent.VK_DOWN;
 	}
 
 	public void actualizarVista() {

@@ -22,18 +22,11 @@ public class Tablero {
 	public Tablero(int tamanioMatriz) {
 		this.tamanio = tamanioMatriz;
 		this.fichas = new Ficha[tamanioMatriz][tamanioMatriz];
-		this.proximoValorFicha = generarValorRandom();
-		this.movimientoSugerido = movimientoSugerido();
-
-		// seteado en dos porque tenemos 2 fichas al comenzar
-		this.contadorFichas = 2;
-		// inicia tablero con Fichas null
-		fichas = new Ficha[tamanioMatriz][tamanioMatriz];
-
-		// hardcodeado
 		this.fichas[1][1] = new Ficha(1);
 		this.fichas[2][2] = new Ficha(2);
-	
+		this.contadorFichas = 2;
+		this.proximoValorFicha = generarValorRandom();
+		this.movimientoSugerido = movimientoSugerido();
 	}
 
 	public void moverDerecha() {
@@ -73,7 +66,7 @@ public class Tablero {
 		} else {
 			if (hayMovimientoHaciaAbajo()) {
 			subrutinaAbajo();
-			fichaRandomAbajo();
+			fichaRandomArriba();
 			}
 		}
 	}
@@ -91,7 +84,7 @@ public class Tablero {
 		} else {
 			if (hayMovimientoHaciaArriba()) {
 			subrutinaArriba();
-			fichaRandomArriba();
+			fichaRandomAbajo();
 			}
 		}
 	}
@@ -145,7 +138,7 @@ public class Tablero {
 		return hayMovimiento;
 	}
 	
-	public boolean bordeDerechoVacio() {
+	private boolean bordeDerechoVacio() {
 		for (int fila = 0; fila < tamanio; fila++) {
 			if (fichas[fila][tamanio - 1] != null) {
 				return false;
@@ -154,40 +147,37 @@ public class Tablero {
 		return true;
 	}
 
-	public boolean bordeIzquierdoVacio() {
-		for (int fila = 0; fila < tamanio; fila++) {
-			if (fichas[fila][0] != null) {
-				return false;
-			}
-		}
-		return true;
+	private boolean bordeIzquierdoVacio() {
+		invertirFilas();
+		boolean valorADevolver = bordeDerechoVacio();
+		invertirFilas();
+		
+		return valorADevolver;
 	}
 
-	public boolean bordeArribaVacio() {
-		for (int col = 0; col < tamanio; col++) {
-			if (fichas[0][col] != null) {
-				return false;
-			}
-		}
-		return true;
+	private boolean bordeArribaVacio() {
+		columnaAFila();
+		boolean valorADevolver = bordeIzquierdoVacio();
+		columnaAFila();
+		
+		return valorADevolver;
 	}
 
-	public boolean bordeAbajoVacio() {
-		for (int col = 0; col < tamanio; col++) {
-			if (fichas[tamanio - 1][col] != null) {
-				return false;
-			}
-		}
-		return true;
+	private boolean bordeAbajoVacio() {
+		columnaAFila();
+		boolean valorADevolver = bordeDerechoVacio();
+		columnaAFila();
+		
+		return valorADevolver;
 	}
 	
-	public void moverFilasALaDerecha() {
+	private void moverFilasALaDerecha() {
 		for (int fila = 0; fila < tamanio; fila++) {
 			moverFilaDerecha(fila);
 		}
 	}
 
-	public void moverFilaDerecha(int fila) {
+	private void moverFilaDerecha(int fila) {
 		boolean yaSeFusiono = false;
 
 		for (int col = tamanio - 2; col >= 0; col--) {
@@ -209,9 +199,6 @@ public class Tablero {
 					
 					ReproductorMusica.reproducirEfecto("/audio/punch.wav");
 				}
-			} else {
-				actual = null;
-				;
 			}
 		}
 	}
@@ -262,13 +249,13 @@ public class Tablero {
 		invertirFilas();
 	}
 	
-	private void fichaRandomAbajo() {
+	private void fichaRandomArriba() {
 		columnaAFila();
 		fichaRandomIzquierda();
 		columnaAFila();
 	}
 	
-	private void fichaRandomArriba() {
+	private void fichaRandomAbajo() {
 		columnaAFila();
 		fichaRandomDerecha();
 		columnaAFila();
@@ -342,15 +329,15 @@ public class Tablero {
 
     	if (hayMovimientoALaDerecha()) posibles.add("DERECHA");
     	if (hayMovimientoALaIzquierda()) posibles.add("IZQUIERDA");
-    	if (hayMovimientoHaciaAbajo()) posibles.add("ARRIBA");
-    	if (hayMovimientoHaciaArriba()) posibles.add("ABAJO");
+    	if (hayMovimientoHaciaAbajo()) posibles.add("ABAJO");
+    	if (hayMovimientoHaciaArriba()) posibles.add("ARRIBA");
 
     	if (!posibles.isEmpty()) {
     	    Random r = new Random();
     	    return posibles.get(r.nextInt(posibles.size()));
     	} else {
     		return "Error 404 :P";
-    	}
+    		}
     }
     
     public int getValorMaximo() {
