@@ -52,94 +52,14 @@ public class PantallaMenu extends JFrame implements MenuVista{
         panelFondo.add(lblTitulo);
 	}
 	
-	private void crearBtnSalir() {
-		btnSalir = new JButton("SALIR");
-        btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        btnSalir.setForeground(new Color(100, 100, 100));
-        btnSalir.setBackground(new Color(220, 220, 220));
-        btnSalir.setFocusPainted(false);
-        btnSalir.setBounds(221, 315, 150, 35);
-        
-        agregarListenerBtnSalir();
-        panelFondo.add(btnSalir);	
+	private void crearLblNombre() {
+		lblNombre = new JLabel("INGRESE SU NOMBRE:");
+        lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblNombre.setForeground(new Color(203, 213, 225));
+        lblNombre.setBounds(60, 95, 200, 22);
+        panelFondo.add(lblNombre);
 	}
-
-	private void agregarListenerBtnSalir() {
-        btnSalir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                menuPresentador.manejarClickBotonSalir();
-            }
-        });
-	}
-
-	private void crearBtnRanking() {
-		btnRanking = new JButton("Ranking");
-        btnRanking.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        btnRanking.setForeground(Color.WHITE); 
-        btnRanking.setBackground(new Color(51, 65, 85));   
-        btnRanking.setBounds(160, 265, 280, 38);
-        
-        agregarListenerBtnRanking();
-        panelFondo.add(btnRanking);
-	}
-
-	private void agregarListenerBtnRanking() {
-        btnRanking.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                menuPresentador.manejarClickBotonRanking();
-            }
-        });
-	}
-
-	private void crearBtnEmpezarJuego() {
-		btnStart = new JButton("Empezar el Juego");
-        btnStart.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        btnStart.setForeground(Color.WHITE);
-        btnStart.setBackground(new Color(16, 185, 129));
-        btnStart.setFocusPainted(false);
-        btnStart.setBorderPainted(false);
-        btnStart.setBounds(160, 210, 280, 42);
-        btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
-        agregarListenerBtnStart();
-        panelFondo.add(btnStart);
-	}
-
-	private void agregarListenerBtnStart() {
-        btnStart.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	
-            	String nombreJugador = textNombre.getText();
-            	int nivelElegido = comboBoxLevels.getSelectedIndex();
-            	
-            	menuPresentador.manejarClickBotonComenzarJuego(nombreJugador, nivelElegido);
-            }
-        });
-	}
-
-	private JComboBox<String> crearComboNiveles() {
-		comboBoxLevels = new JComboBox<String>();
-        comboBoxLevels.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        comboBoxLevels.setForeground(new Color(15, 23, 42));
-        comboBoxLevels.setBackground(new Color(241, 245, 249));
-        comboBoxLevels.setModel(new DefaultComboBoxModel<String>(new String[] {"Clásico 4x4", "Extra 5x5", "Supremo 6x6"}));
-        comboBoxLevels.setBounds(340, 122, 180, 38);
-        
-        DefaultListCellRenderer centerRenderer = new DefaultListCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        comboBoxLevels.setRenderer(centerRenderer);
-        panelFondo.add(comboBoxLevels);
-		return comboBoxLevels;
-	}
-
-	private void crearLblNivel() {
-		lblNivel = new JLabel("ELEGIR NIVEL");
-        lblNivel.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        lblNivel.setForeground(new Color(203, 213, 225));
-        lblNivel.setBounds(340, 95, 180, 22);
-        panelFondo.add(lblNivel);
-	}
-
+	
 	private void crearTextNombre() {
 		textNombre = new JTextField();
         textNombre.setFont(new Font("Segoe UI", Font.PLAIN, 15));
@@ -162,13 +82,93 @@ public class PantallaMenu extends JFrame implements MenuVista{
         });
         panelFondo.add(textNombre);
 	}
+	
+	private void crearLblNivel() {
+		lblNivel = new JLabel("ELEGIR NIVEL");
+        lblNivel.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblNivel.setForeground(new Color(203, 213, 225));
+        lblNivel.setBounds(340, 95, 180, 22);
+        panelFondo.add(lblNivel);
+	}
+	
+	private JComboBox<String> crearComboNiveles() {
+		comboBoxLevels = new JComboBox<String>();
+        comboBoxLevels.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        comboBoxLevels.setForeground(new Color(15, 23, 42));
+        comboBoxLevels.setBackground(new Color(241, 245, 249));
+        comboBoxLevels.setModel(new DefaultComboBoxModel<String>(new String[] {"Clásico 4x4", "Extra 5x5", "Supremo 6x6"}));
+        comboBoxLevels.setBounds(340, 122, 180, 38);
+        
+        DefaultListCellRenderer centerRenderer = new DefaultListCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        comboBoxLevels.setRenderer(centerRenderer);
+        panelFondo.add(comboBoxLevels);
+		return comboBoxLevels;
+	}
+	
+	private void crearBtnEmpezarJuego() {
+		btnStart = new JButton("Empezar el Juego");
+        btnStart.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        btnStart.setForeground(Color.WHITE);
+        btnStart.setBackground(new Color(16, 185, 129));
+        btnStart.setFocusPainted(false);
+        btnStart.setBorderPainted(false);
+        btnStart.setBounds(160, 210, 280, 42);
+        btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        agregarListenerBtnStart();
+        panelFondo.add(btnStart);
+	}
+	
+	private void crearBtnRanking() {
+		btnRanking = new JButton("Ranking");
+        btnRanking.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnRanking.setForeground(Color.WHITE); 
+        btnRanking.setBackground(new Color(51, 65, 85));   
+        btnRanking.setBounds(160, 265, 280, 38);
+        
+        agregarListenerBtnRanking();
+        panelFondo.add(btnRanking);
+	}
 
-	private void crearLblNombre() {
-		lblNombre = new JLabel("INGRESE SU NOMBRE:");
-        lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        lblNombre.setForeground(new Color(203, 213, 225));
-        lblNombre.setBounds(60, 95, 200, 22);
-        panelFondo.add(lblNombre);
+	private void agregarListenerBtnRanking() {
+        btnRanking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menuPresentador.manejarClickBotonRanking();
+            }
+        });
+	}
+
+	private void agregarListenerBtnStart() {
+        btnStart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            	String nombreJugador = textNombre.getText();
+            	int nivelElegido = comboBoxLevels.getSelectedIndex();
+            	
+            	menuPresentador.manejarClickBotonComenzarJuego(nombreJugador, nivelElegido);
+            }
+        });
+	}
+	
+	private void crearBtnSalir() {
+		btnSalir = new JButton("SALIR");
+        btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSalir.setForeground(new Color(100, 100, 100));
+        btnSalir.setBackground(new Color(220, 220, 220));
+        btnSalir.setFocusPainted(false);
+        btnSalir.setBounds(221, 315, 150, 35);
+        
+        agregarListenerBtnSalir();
+        panelFondo.add(btnSalir);	
+	}
+
+	private void agregarListenerBtnSalir() {
+        btnSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menuPresentador.manejarClickBotonSalir();
+            }
+        });
 	}
 
 	@Override

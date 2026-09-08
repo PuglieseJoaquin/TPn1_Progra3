@@ -18,9 +18,8 @@ public class Ficha {
 
     public boolean puedeFusionarseCon(Ficha otra) {
         if (otra == null) return false;
-        if ((this.valor == 1 && otra.valor == 2) || (this.valor == 2 && otra.valor == 1)) {
+        if ((this.valor == 1 && otra.valor == 2) || (this.valor == 2 && otra.valor == 1))
             return true;
-        }
         return this.valor == otra.valor && this.valor >= 3;
     }
 

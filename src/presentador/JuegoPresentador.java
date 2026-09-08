@@ -37,9 +37,9 @@ public class JuegoPresentador {
 	
 	public boolean esTeclaValida(int codigoTecla) {
 		return codigoTecla == KeyEvent.VK_RIGHT ||
-	            codigoTecla == KeyEvent.VK_LEFT ||
-	            codigoTecla == KeyEvent.VK_UP ||
-	            codigoTecla == KeyEvent.VK_DOWN;
+	           codigoTecla == KeyEvent.VK_LEFT ||
+	           codigoTecla == KeyEvent.VK_UP ||
+	           codigoTecla == KeyEvent.VK_DOWN;
 	}
 
 	public void actualizarVista() {

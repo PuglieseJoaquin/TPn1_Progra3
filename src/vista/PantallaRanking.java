@@ -42,8 +42,15 @@ public class PantallaRanking extends JFrame {
         panelFondo.setBorder(new EmptyBorder(15, 15, 15, 15));
         setContentPane(panelFondo);
 	}
+	
+	private void crearLblTitulo() {
+		lblRanking = new JLabel("RANKING", SwingConstants.CENTER);
+        lblRanking.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblRanking.setForeground(new Color(248, 250, 252));
+        panelFondo.add(lblRanking, BorderLayout.NORTH);
+	}
 
-    private void crearPestanasRanking() {
+	private void crearPestanasRanking() {
         solapasRanking = new JTabbedPane();
         solapasRanking.setBackground(new Color(30, 41, 59));
         solapasRanking.setForeground(new Color(241, 245, 249));
@@ -54,7 +61,7 @@ public class PantallaRanking extends JFrame {
 
         panelFondo.add(solapasRanking, BorderLayout.CENTER);
     }
-
+	
     private JScrollPane crearPanelTabla(String nivel) {
         List<Object[]> filas = rankingPresenter.getFilasRanking(nivel);
 
@@ -66,7 +73,7 @@ public class PantallaRanking extends JFrame {
             modeloDeTabla.addRow(fila);
         }
 
-        return dibujarTablaParaDatos(modeloDeTabla);
+        		return dibujarTablaParaDatos(modeloDeTabla);
     }
 
 	private JScrollPane dibujarTablaParaDatos(DefaultTableModel modeloDeTabla) {
@@ -94,9 +101,9 @@ public class PantallaRanking extends JFrame {
         JScrollPane scroll = new JScrollPane(tabla);
         scroll.getViewport().setBackground(new Color(15, 23, 42));
         scroll.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
-        return scroll;
+        		return scroll;
 	}
-
+	
 	private void crearBtnVolverAlMenu() {
 		btnVolverAlMenu = new JButton("Volver al menú");
         btnVolverAlMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -113,12 +120,5 @@ public class PantallaRanking extends JFrame {
         panelBoton.setBackground(new Color(30, 41, 59));
         panelBoton.add(btnVolverAlMenu);
         panelFondo.add(panelBoton, BorderLayout.SOUTH);
-	}
-
-	private void crearLblTitulo() {
-		lblRanking = new JLabel("RANKING", SwingConstants.CENTER);
-        lblRanking.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        lblRanking.setForeground(new Color(248, 250, 252));
-        panelFondo.add(lblRanking, BorderLayout.NORTH);
 	}
 }

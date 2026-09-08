@@ -11,7 +11,7 @@ public class Ranking {
     
     
     public static void registrarPartida(Partida partida) {
-   	 String nivel = partida.getNivel();
+   	 	String nivel = partida.getNivel();
    	    if (nivel.equals("Clásico 4x4")) partidas4x4.add(partida);
    	    else if (nivel.equals("Extra 5x5")) partidas5x5.add(partida);
    	    else if (nivel.equals("Supremo 6x6")) partidas6x6.add(partida);

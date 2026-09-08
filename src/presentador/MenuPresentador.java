@@ -10,8 +10,7 @@ public class MenuPresentador {
 	
 	public MenuPresentador(MenuVista menuVista, GestorPantallas gestorPantallas) {
 		this.gestorPantallas = gestorPantallas;
-		this.menuVista = menuVista;
-		
+		this.menuVista = menuVista;		
 	}
 	
 	public void manejarClickBotonSalir() {
@@ -39,7 +38,7 @@ public class MenuPresentador {
 			gestorPantallas.crearPantallaJuego(nombre, 5, "Extra 5x5");
 	    
 	    } else if (nivel==2) {
-	    	gestorPantallas.crearPantallaJuego(nombre, 6, "Supremo 6x6");
+	    		gestorPantallas.crearPantallaJuego(nombre, 6, "Supremo 6x6");
 	    }
 	}		
 
