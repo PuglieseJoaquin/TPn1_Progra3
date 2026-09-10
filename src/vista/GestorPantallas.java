@@ -15,10 +15,12 @@ public class GestorPantallas implements GestorInterfaz {
 		 mostrarPantalla(bienvenida);
 	}
 	
+	
 	public void crearPantallaMenu() {
 		 menu = new PantallaMenu(this);
 		 mostrarPantalla(menu); 
 	}
+	
 	
 	public void crearPantallaJuego(String nombre, int tamanioMatriz, String nivel) {
 		 juego = new PantallaJuego(this, nombre, tamanioMatriz, nivel); 
@@ -30,16 +32,19 @@ public class GestorPantallas implements GestorInterfaz {
 		mostrarPantalla(partidaTerminada);
 	}
 	
+	
 	public void crearPantallaRanking() {
 		ranking = new PantallaRanking(this);
 		mostrarPantalla(ranking);
 	}
+	
 	
 	public JFrame mostrarPantalla(JFrame pantalla) {
 		pantalla.setVisible(true);
 		ocultarPantallas(pantalla);
 		return pantalla;
 	}	
+	
 	
 	public void ocultarPantallas(JFrame pantallaActual) {
 		JFrame[] todasLasPantallas = {bienvenida, menu, juego, partidaTerminada, ranking};

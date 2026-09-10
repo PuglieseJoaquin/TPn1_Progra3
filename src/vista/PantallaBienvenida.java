@@ -32,6 +32,7 @@ public class PantallaBienvenida extends JFrame {
         crearFooter();
     }
     
+    
     private void configurarPantalla() {
 		setTitle("Threes! — Bienvenida");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +55,7 @@ public class PantallaBienvenida extends JFrame {
         panelFondo.add(lblImagen);
 	}
     
+    
     private void crearBtnMenu() {
     		btnMenu = new JButton("MENU");
         btnMenu.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -67,6 +69,7 @@ public class PantallaBienvenida extends JFrame {
         agregarListenerBtnMenu();
 	}
 
+    
 	private void agregarListenerBtnMenu() {
         btnMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -76,6 +79,7 @@ public class PantallaBienvenida extends JFrame {
         panelFondo.add(btnMenu);
 	}
 
+	
 	private void crearBtnSalir() {
 		btnSalir = new JButton("SALIR");
         btnSalir.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -87,6 +91,7 @@ public class PantallaBienvenida extends JFrame {
         agregarListenerBtnSalir();
 	}
 
+	
 	private void agregarListenerBtnSalir() {
         btnSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -96,6 +101,7 @@ public class PantallaBienvenida extends JFrame {
         panelFondo.add(btnSalir);		
 	}
 
+	
 	private void crearFooter() {
 		lblFooter = new JLabel("Combina los tres • Desliza para combinar • Suerte!", SwingConstants.CENTER);
         lblFooter.setFont(new Font("Segoe UI", Font.PLAIN, 11));

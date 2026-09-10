@@ -36,6 +36,7 @@ public class PantallaPartidaTerminada extends JFrame {
         crearBtnVolverMenu();
     }
 
+    
 	private void configurarPantalla() {
 		setTitle("Threes! — Game Over");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +50,7 @@ public class PantallaPartidaTerminada extends JFrame {
         panelFondo.setLayout(null);
 	}
 
+	
 	private void crearTituloGameOver() {
         titulo = new JLabel("GAME OVER", SwingConstants.CENTER);
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
@@ -57,6 +59,7 @@ public class PantallaPartidaTerminada extends JFrame {
         panelFondo.add(titulo);
 	}
 
+	
 	private void crearLblNombre() {
         lblNombre = new JLabel("Jugador: " + nombre, SwingConstants.CENTER);
         lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -65,6 +68,7 @@ public class PantallaPartidaTerminada extends JFrame {
         panelFondo.add(lblNombre);
 	}
 
+	
 	private void crearLblPuntaje() {
         lblPuntaje = new JLabel("Puntaje Final: " + puntajePartida, SwingConstants.CENTER);
         lblPuntaje.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -73,6 +77,7 @@ public class PantallaPartidaTerminada extends JFrame {
         panelFondo.add(lblPuntaje);
 	}
 
+	
 	private void crearBtnJugarDeNuevo() {
         btnJugarDeNuevo = new JButton("Jugar de nuevo");
         btnJugarDeNuevo.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -85,6 +90,7 @@ public class PantallaPartidaTerminada extends JFrame {
         panelFondo.add(btnJugarDeNuevo);
 	}
 
+	
 	private void agregarListenerBtnJugarDeNuevo() {
         btnJugarDeNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,6 +99,7 @@ public class PantallaPartidaTerminada extends JFrame {
         });
 	}
 
+	
 	private void crearBtnVolverMenu() {
         btnVolverMenu = new JButton("Volver al menú");
         btnVolverMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -105,6 +112,7 @@ public class PantallaPartidaTerminada extends JFrame {
         panelFondo.add(btnVolverMenu);
 	}
 
+	
 	private void agregarListenerBtnVolverMenu() {     
         btnVolverMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

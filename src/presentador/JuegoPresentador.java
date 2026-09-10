@@ -7,6 +7,7 @@ import vista.GestorPantallas;
 import vista.JuegoVista;
 
 public class JuegoPresentador {
+	
 	private GestorPantallas gestorPantallas;
 	private Juego juego;
 	private JuegoVista juegoVista;
@@ -22,7 +23,8 @@ public class JuegoPresentador {
 		this.tamanioMatriz = tamanioMatriz;
 		this.nivel = nivel;
 	}
-		
+	
+	
 	public void manejarEventoTeclaDeMovimiento(int codigoTecla) {
 		if (esTeclaValida(codigoTecla)) {
 			juego.mover(codigoTecla);
@@ -35,6 +37,7 @@ public class JuegoPresentador {
 		}
 	}
 	
+	
 	public boolean esTeclaValida(int codigoTecla) {
 		return codigoTecla == KeyEvent.VK_RIGHT ||
 	           codigoTecla == KeyEvent.VK_LEFT ||
@@ -42,6 +45,7 @@ public class JuegoPresentador {
 	           codigoTecla == KeyEvent.VK_DOWN;
 	}
 
+	
 	public void actualizarVista() {
 		juegoVista.mostrarTablero(juego.getMatrizValoresDeFichas());
 		juegoVista.mostrarProximaFicha(juego.getProximoValorFicha());

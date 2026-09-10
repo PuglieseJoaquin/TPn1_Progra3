@@ -3,6 +3,7 @@ package modelo;
 import java.awt.event.KeyEvent;
 
 public class Juego {
+	
     private Tablero tablero;
     private int puntaje;
     private boolean gameOver;
@@ -10,7 +11,8 @@ public class Juego {
     private int valorFichaMaximo;
     private int tamanioMatriz;
     
-    public Juego(int tamanioMatriz, String nombreJugador, String nivel) {
+    
+    public Juego(int tamanioMatriz, String nombreJugador, String nivel) {	
         this.tablero = new Tablero(tamanioMatriz);
         this.puntaje = 0;
         this.gameOver = false;
@@ -18,10 +20,12 @@ public class Juego {
         this.valorFichaMaximo = 0;
         this.tamanioMatriz = tamanioMatriz;
     }
-     
+    
+    
 	public boolean isGameOver() {
         return gameOver;
     }
+	
 	
     public void mover(int codigoTecla) {
     	
@@ -45,16 +49,6 @@ public class Juego {
         }
     }
     
-    private boolean esPartidaAunValida() {
-    		return !gameOver && (!tablero.estaCompleto() || tablero.hayMovimientosPosibles());
-    }
-    
-    private void configurarPartidaTerminada() {
-        gameOver = true;
-        puntaje = calcularPuntaje();
-        Ranking.registrarPartida(partidaActual);
-        ReproductorMusica.detener();
-    }
     
     public int[][] getMatrizValoresDeFichas() {  	
     		
@@ -69,14 +63,17 @@ public class Juego {
     		return valores;
     }
     
+    
     public int getProximoValorFicha() {
     		return tablero.getProximoValorFicha();
     }
+    
     
     public int getPuntaje() {
     		return puntaje;
     }
 
+    
     public int calcularPuntaje() {
 	    	puntaje = tablero.calcularPuntaje();
 	    	partidaActual.setPuntaje(puntaje);
@@ -84,7 +81,21 @@ public class Juego {
 	    	return this.puntaje;
     }
     
+    
     public String getMovimientoSugerido() {
     		return tablero.movimientoSugerido();
-    } 
+    }
+    
+
+    private boolean esPartidaAunValida() {
+    		return !gameOver && (!tablero.estaCompleto() || tablero.hayMovimientosPosibles());
+    }
+    
+    private void configurarPartidaTerminada() {
+        gameOver = true;
+        puntaje = calcularPuntaje();
+        Ranking.registrarPartida(partidaActual);
+        ReproductorMusica.detener();
+    }
+    
 }

@@ -5,6 +5,7 @@ import vista.GestorPantallas;
 import vista.MenuVista;
 
 public class MenuPresentador {
+	
 	private GestorPantallas gestorPantallas;
 	private MenuVista menuVista;
 	
@@ -13,10 +14,12 @@ public class MenuPresentador {
 		this.menuVista = menuVista;		
 	}
 	
+	
 	public void manejarClickBotonSalir() {
 		System.exit(0);	
 	}
 
+	
 	public void manejarClickBotonComenzarJuego(String nombre, int nivel) {
 		if (!esNombreValido(nombre)) {
 			menuVista.mostrarMensajeError();
@@ -30,6 +33,12 @@ public class MenuPresentador {
 		comenzarNivel(nombre, nivel);
 	}
 
+
+	public void manejarClickBotonRanking() {
+		gestorPantallas.crearPantallaRanking();		
+	}
+	
+	
 	private void comenzarNivel(String nombre, int nivel) {
 		if(nivel==0) {
 			gestorPantallas.crearPantallaJuego(nombre, 4, "Clásico 4x4");
@@ -42,11 +51,8 @@ public class MenuPresentador {
 	    }
 	}		
 
+	
 	private static boolean esNombreValido(String nombre) {
         return (nombre.length() >= 3);
     }
-
-	public void manejarClickBotonRanking() {
-		gestorPantallas.crearPantallaRanking();		
-	}
 }

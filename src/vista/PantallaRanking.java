@@ -29,6 +29,7 @@ public class PantallaRanking extends JFrame {
         crearBtnVolverAlMenu();
     }
     
+    
 	private void configurarPantalla() {
 		setTitle("Threes! — Ranking");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +44,7 @@ public class PantallaRanking extends JFrame {
         setContentPane(panelFondo);
 	}
 	
+	
 	private void crearLblTitulo() {
 		lblRanking = new JLabel("RANKING", SwingConstants.CENTER);
         lblRanking.setFont(new Font("Segoe UI", Font.BOLD, 22));
@@ -50,6 +52,7 @@ public class PantallaRanking extends JFrame {
         panelFondo.add(lblRanking, BorderLayout.NORTH);
 	}
 
+	
 	private void crearPestanasRanking() {
         solapasRanking = new JTabbedPane();
         solapasRanking.setBackground(new Color(30, 41, 59));
@@ -61,6 +64,7 @@ public class PantallaRanking extends JFrame {
 
         panelFondo.add(solapasRanking, BorderLayout.CENTER);
     }
+	
 	
     private JScrollPane crearPanelTabla(String nivel) {
         List<Object[]> filas = rankingPresenter.getFilasRanking(nivel);
@@ -76,6 +80,7 @@ public class PantallaRanking extends JFrame {
         		return dibujarTablaParaDatos(modeloDeTabla);
     }
 
+    
 	private JScrollPane dibujarTablaParaDatos(DefaultTableModel modeloDeTabla) {
         JTable tabla = new JTable(modeloDeTabla);
         tabla.setShowVerticalLines(false);
@@ -103,6 +108,7 @@ public class PantallaRanking extends JFrame {
         scroll.setBorder(BorderFactory.createLineBorder(new Color(51, 65, 85)));
         		return scroll;
 	}
+	
 	
 	private void crearBtnVolverAlMenu() {
 		btnVolverAlMenu = new JButton("Volver al menú");

@@ -13,6 +13,7 @@ public class Principal {
         }
 
         GestorPantallas gestorPantallas = new GestorPantallas();
+        
         gestorPantallas.crearPantallaBienvenida();
     }
 }

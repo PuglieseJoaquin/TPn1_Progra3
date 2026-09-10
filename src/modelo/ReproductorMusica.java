@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.net.URL;
 
 public class ReproductorMusica {
-    private static Clip clip;
+    
+	private static Clip clip;
 
+	
     public static void reproducirLoop(String rutaArchivo) {
         detener();
         clip = cargarYConfigurarClip(rutaArchivo, -20.0f);
@@ -16,6 +18,7 @@ public class ReproductorMusica {
         }
     }
 
+    
     public static void reproducirEfecto(String rutaArchivo) {
         Clip efectoClip = cargarYConfigurarClip(rutaArchivo, -10.0f);
         if (efectoClip != null) {
@@ -30,6 +33,7 @@ public class ReproductorMusica {
         }
     }
 
+    
     private static Clip cargarYConfigurarClip(String rutaArchivo, float volumen) {
         try {
             URL url = ReproductorMusica.class.getResource(rutaArchivo);

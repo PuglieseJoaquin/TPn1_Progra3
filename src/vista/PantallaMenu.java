@@ -32,6 +32,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         crearBtnSalir();
     }
     
+    
 	private void configurarPantalla() {
 		setTitle("Threes! — Menú Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,6 +53,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         panelFondo.add(lblTitulo);
 	}
 	
+	
 	private void crearLblNombre() {
 		lblNombre = new JLabel("INGRESE SU NOMBRE:");
         lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -59,6 +61,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         lblNombre.setBounds(60, 95, 200, 22);
         panelFondo.add(lblNombre);
 	}
+	
 	
 	private void crearTextNombre() {
 		textNombre = new JTextField();
@@ -71,6 +74,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         agregarListenerTextNombre();
 	}
 
+	
 	private void agregarListenerTextNombre() {
         textNombre.addKeyListener(new KeyAdapter() {
             @Override
@@ -83,6 +87,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         panelFondo.add(textNombre);
 	}
 	
+	
 	private void crearLblNivel() {
 		lblNivel = new JLabel("ELEGIR NIVEL");
         lblNivel.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -90,6 +95,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         lblNivel.setBounds(340, 95, 180, 22);
         panelFondo.add(lblNivel);
 	}
+	
 	
 	private JComboBox<String> crearComboNiveles() {
 		comboBoxLevels = new JComboBox<String>();
@@ -106,6 +112,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
 		return comboBoxLevels;
 	}
 	
+	
 	private void crearBtnEmpezarJuego() {
 		btnStart = new JButton("Empezar el Juego");
         btnStart.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -120,6 +127,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         panelFondo.add(btnStart);
 	}
 	
+	
 	private void crearBtnRanking() {
 		btnRanking = new JButton("Ranking");
         btnRanking.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -131,6 +139,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         panelFondo.add(btnRanking);
 	}
 
+	
 	private void agregarListenerBtnRanking() {
         btnRanking.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -139,6 +148,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         });
 	}
 
+	
 	private void agregarListenerBtnStart() {
         btnStart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -150,6 +160,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
             }
         });
 	}
+	
 	
 	private void crearBtnSalir() {
 		btnSalir = new JButton("SALIR");
@@ -163,6 +174,7 @@ public class PantallaMenu extends JFrame implements MenuVista{
         panelFondo.add(btnSalir);	
 	}
 
+	
 	private void agregarListenerBtnSalir() {
         btnSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -171,12 +183,14 @@ public class PantallaMenu extends JFrame implements MenuVista{
         });
 	}
 
+	
 	@Override
 	public void mostrarMensajeError() {
         JOptionPane.showMessageDialog(null, "Tu nombre debe tener al menos 3 letras.", "Nombre no válido",
                 JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	
 	@Override
 	public void mostrarMensajeReglas() {
 		JOptionPane.showMessageDialog(null,

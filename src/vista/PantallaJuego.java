@@ -10,7 +10,6 @@ import presentador.JuegoPresentador;
 public class PantallaJuego extends JFrame implements JuegoVista {
 
 	private JuegoPresentador juegoPresentador;
-
 	private JPanel panelFondo;
 	private JPanel panelJuego;
 	private JLabel[] cuadrados;
@@ -23,9 +22,9 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 	private JLabel lblLinea1;
 	private JLabel lblLinea2;
 	private int tamanioMatriz;
-
 	private JPanel panelMatriz;
 
+	
 	public PantallaJuego(GestorPantallas gestorPantallas, String nombreJugador, int tamanioMatriz, String nivel) {
 		this.tamanioMatriz = tamanioMatriz;
 		juegoPresentador = new JuegoPresentador(this, gestorPantallas, nombreJugador, tamanioMatriz, nivel);
@@ -41,6 +40,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		crearLblLinea2();
 		crearMatrizVisual();
 	}
+	
 	
 	private void configurarPantalla(String nivel) {
 		setTitle("Threes! — Partida (" + nivel + ")");
@@ -62,6 +62,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		panelJuego.setLayout(null);
 	}
 	
+	
 	private void crearLblSuerte() {
 		lblSuerte = new JLabel("¡A Jugar!");
 		lblSuerte.setForeground(new Color(248, 250, 252));
@@ -69,6 +70,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		lblSuerte.setBounds(15, 12, 180, 25);
 		panelJuego.add(lblSuerte);
 	}
+	
 	
 	private void crearLblNombreJugador(String nombreJugador) {
 		lblNombreUsuario = new JLabel(nombreJugador);
@@ -83,6 +85,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		panelJuego.add(lblNombreUsuario);
 	}
 	
+	
 	private void crearLblProximaFicha() {
 		lblProximaFicha = new JLabel("Próxima Ficha:");
 		lblProximaFicha.setForeground(new Color(203, 213, 225));
@@ -90,6 +93,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		lblProximaFicha.setBounds(15, 90, 180, 20);
 		panelJuego.add(lblProximaFicha);
 	}
+	
 	
 	private void crearLblProximaFichaValor() {
 		lblProximaFichaValor = new JLabel();
@@ -103,6 +107,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		panelJuego.add(lblProximaFichaValor);
 	}
 	
+	
 	private void crearLblJugadaSugerida() {
 		lblJugadaSugerida = new JLabel("Jugada Sugerida:");
 		lblJugadaSugerida.setForeground(new Color(203, 213, 225));
@@ -110,6 +115,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		lblJugadaSugerida.setBounds(15, 170, 180, 20);
 		panelJuego.add(lblJugadaSugerida);
 	}
+	
 	
 	private void crearLblMovimientoSugerido() {
 		lblMovimientoSugerido = new JLabel();
@@ -123,6 +129,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		panelJuego.add(lblMovimientoSugerido);
 	}
 	
+	
 	private void crearLblLinea1() {
 		lblLinea1 = new JLabel("Usa las flechas");
 		lblLinea1.setForeground(new Color(148, 163, 184));
@@ -132,6 +139,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		panelJuego.add(lblLinea1);
 	}	
 	
+	
 	private void crearLblLinea2() {
 		lblLinea2 = new JLabel("para deslizar");
 		lblLinea2.setForeground(new Color(148, 163, 184));
@@ -140,6 +148,8 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		lblLinea2.setBounds(15, 270, 180, 20);
 		panelJuego.add(lblLinea2);
 	}
+	
+	
 	private void crearMatrizVisual() {
 		panelMatriz = new JPanel();
 		panelFondo.add(panelMatriz, BorderLayout.CENTER);
@@ -153,6 +163,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		juegoPresentador.actualizarVista();
 	}
 	
+	
 	private void agregarListenerPanelMatriz() {
 		panelFondo.addKeyListener(new KeyAdapter() {
 			@Override
@@ -162,6 +173,7 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 			}
 		});
 	}
+	
 	
 	private void crearCuadradosDeColores() {
 		int matrizTotal = tamanioMatriz * tamanioMatriz;
@@ -180,11 +192,13 @@ public class PantallaJuego extends JFrame implements JuegoVista {
 		}
 	}
 
+	
 	@Override
 	public void mostrarMovimientoSugerido(String movimiento) {
 		lblMovimientoSugerido.setText(movimiento);
 	}
 
+	
 	@Override
 	public void mostrarTablero(int[][] valoresDeFichas) {
 
@@ -206,7 +220,8 @@ public class PantallaJuego extends JFrame implements JuegoVista {
             }
         }
 	}
-        
+      
+	
     @Override
     public void mostrarProximaFicha(int valor) {
     		lblProximaFichaValor.setText(String.valueOf(valor));

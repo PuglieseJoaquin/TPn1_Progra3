@@ -7,6 +7,7 @@ import modelo.Partida;
 import vista.GestorPantallas;
 
 public class RankingPresentador {
+	
 	private GestorPantallas gestorPantallas;
 
 
@@ -14,10 +15,12 @@ public class RankingPresentador {
 		this.gestorPantallas = gestorPantallas;	
 	}
 
+	
 	public void manejarClickVolverAlMenu() {
 		gestorPantallas.crearPantallaMenu();	
 	}
 
+	
 	public List<Object[]> getFilasRanking(String nivel) {
 		
 	    ArrayList<Partida> partidas = Ranking.getTop5Puntajes(nivel);
