@@ -24,8 +24,7 @@ public class JuegoPresentador {
 		this.tamanioMatriz = tamanioMatriz;
 		this.nivel = nivel;
 	}
-	
-	
+		
 	public void manejarEventoTeclaDeMovimiento(int codigoTecla) {
 		Direccion direccion = traducirTecla(codigoTecla);
 		
@@ -44,9 +43,7 @@ public class JuegoPresentador {
 		juegoVista.mostrarTablero(obtenerValoresSimplificados());
 		juegoVista.mostrarProximaFicha(juego.getProximoValorFicha());
 		juegoVista.mostrarMovimientoSugerido(juego.getMovimientoSugerido());
-	}
-	
-	
+	}	
 	
 	private int[][] obtenerValoresSimplificados() {
 		int[][] valores = new int[tamanioMatriz][tamanioMatriz];
@@ -59,7 +56,6 @@ public class JuegoPresentador {
 		}
 		return valores;
 }
-
 
 	private Direccion traducirTecla(int codigoTecla) {
 	    switch (codigoTecla) {

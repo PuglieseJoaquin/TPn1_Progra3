@@ -13,13 +13,11 @@ public class MenuPresentador {
 		this.gestorPantallas = gestorPantallas;
 		this.menuVista = menuVista;		
 	}
-	
-	
+		
 	public void manejarClickBotonSalir() {
 		System.exit(0);	
 	}
 
-	
 	public void manejarClickBotonComenzarJuego(String nombre, int nivel) {
 		if (!esNombreValido(nombre)) {
 			menuVista.mostrarMensajeError();
@@ -33,12 +31,10 @@ public class MenuPresentador {
 		comenzarNivel(nombre, nivel);
 	}
 
-
 	public void manejarClickBotonRanking() {
 		gestorPantallas.crearPantallaRanking();		
 	}
-	
-	
+
 	private void comenzarNivel(String nombre, int nivel) {
 		if(nivel==0) {
 			gestorPantallas.crearPantallaJuego(nombre, 4, "Clásico 4x4");
@@ -50,7 +46,6 @@ public class MenuPresentador {
 	    		gestorPantallas.crearPantallaJuego(nombre, 6, "Supremo 6x6");
 	    }
 	}		
-
 	
 	private static boolean esNombreValido(String nombre) {
         return (nombre.length() >= 3);

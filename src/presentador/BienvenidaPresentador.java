@@ -10,14 +10,11 @@ public class BienvenidaPresentador {
 		this.gestorPantallas = gestorPantallas;	
 	}
 
-	
 	public void manejarClickBotonSalir() {
 		System.exit(0);	
 	}
-
 	
 	public void manejarClickBotonMenu() {
 		gestorPantallas.crearPantallaMenu();
 	}
-
 }

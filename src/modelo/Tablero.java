@@ -92,7 +92,7 @@ public class Tablero {
 		return true;
 	}
 	
-	public boolean bordeIzquierdoVacio() {
+	private boolean bordeIzquierdoVacio() {
 		for (int fila = 0; fila < tamanio; fila++) {
 			if (fichas[fila][0] != null)
 				return false;
@@ -100,7 +100,7 @@ public class Tablero {
 		return true;
 	}
 
-	public boolean bordeArribaVacio() {
+	private boolean bordeArribaVacio() {
 		for (int col = 0; col < tamanio; col++) {
 			if (fichas[0][col] != null)
 				return false;
@@ -108,7 +108,7 @@ public class Tablero {
 		return true;
 	}	
 	
-	public boolean bordeAbajoVacio() {
+	private boolean bordeAbajoVacio() {
 		for (int col = 0; col < tamanio; col++) {
 			if (fichas[tamanio - 1][col] != null)
 				return false;
@@ -304,7 +304,7 @@ public class Tablero {
 		return posicion;
 	}
 	
-	public void generarFichaEnLugarEncontrado(int fila, int col) {
+	private void generarFichaEnLugarEncontrado(int fila, int col) {
 		int valor = proximoValorFicha;
 		proximoValorFicha = generarValorRandom();
 		Ficha fichaRandom = new Ficha(valor);
@@ -319,5 +319,3 @@ public class Tablero {
 		return valor;
 	}
 }
-	
-
