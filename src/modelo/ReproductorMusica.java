@@ -17,7 +17,6 @@ public class ReproductorMusica {
             clip.start();
         }
     }
-
     
     public static void reproducirEfecto(String rutaArchivo) {
         Clip efectoClip = cargarYConfigurarClip(rutaArchivo, -10.0f);
@@ -32,7 +31,6 @@ public class ReproductorMusica {
             clip.close();
         }
     }
-
     
     private static Clip cargarYConfigurarClip(String rutaArchivo, float volumen) {
         try {

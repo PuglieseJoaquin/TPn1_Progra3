@@ -190,7 +190,6 @@ public class PantallaMenu extends JFrame implements MenuVista{
                 JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	
 	@Override
 	public void mostrarMensajeReglas() {
 		JOptionPane.showMessageDialog(null,

@@ -16,15 +16,13 @@ public class Ranking {
    	    if (nivel.equals("Clásico 4x4")) partidas4x4.add(partida);
    	    else if (nivel.equals("Extra 5x5")) partidas5x5.add(partida);
    	    else if (nivel.equals("Supremo 6x6")) partidas6x6.add(partida);
-    		}
-    
+    		} 
     
     public static ArrayList<Partida> getTop5Puntajes(String nivel) {
 	    	if(nivel.equals("Clásico 4x4")) return obtenerMejores(partidas4x4);
 	    	else if (nivel.equals("Extra 5x5")) return obtenerMejores(partidas5x5);
 	    	else return obtenerMejores(partidas6x6);	    	
-	    }
-	       
+	    }	       
       
     private static ArrayList<Partida> obtenerMejores(ArrayList<Partida> lista) {
         ArrayList<Partida> partidasAElegir = new ArrayList<>(lista);
@@ -41,7 +39,6 @@ public class Ranking {
 
         return rankingFinal;
     }
-
     
     private static Partida encontrarMejor(ArrayList<Partida> lista) {
         return Collections.max(lista, new Comparator<Partida>() {

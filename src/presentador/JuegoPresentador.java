@@ -2,6 +2,7 @@ package presentador;
 
 import java.awt.event.KeyEvent;
 import modelo.Direccion;
+import modelo.Ficha;
 import modelo.Juego;
 import vista.GestorPantallas;
 import vista.JuegoVista;
@@ -40,11 +41,26 @@ public class JuegoPresentador {
 	}
 	
 	public void actualizarVista() {
-		juegoVista.mostrarTablero(juego.getMatrizValoresDeFichas());
+		juegoVista.mostrarTablero(obtenerValoresSimplificados());
 		juegoVista.mostrarProximaFicha(juego.getProximoValorFicha());
 		juegoVista.mostrarMovimientoSugerido(juego.getMovimientoSugerido());
 	}
 	
+	
+	
+	private int[][] obtenerValoresSimplificados() {
+		int[][] valores = new int[tamanioMatriz][tamanioMatriz];
+		
+		for (int fila = 0; fila < tamanioMatriz; fila++) {
+			for (int col = 0; col < tamanioMatriz; col++) {
+				Ficha ficha = juego.getTablero().getFicha(fila, col);
+				valores[fila][col] = (ficha == null) ? 0 : ficha.getValor();
+			}
+		}
+		return valores;
+}
+
+
 	private Direccion traducirTecla(int codigoTecla) {
 	    switch (codigoTecla) {
 	        case KeyEvent.VK_RIGHT: return Direccion.DERECHA;

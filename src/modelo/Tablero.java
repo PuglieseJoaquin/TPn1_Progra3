@@ -3,7 +3,6 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import modelo.Direccion;
 
 public class Tablero {
 
@@ -14,9 +13,7 @@ public class Tablero {
 	private int tamanio;
 	private int contadorFichas;
 	private int proximoValorFicha;
-	private int valorMaximo;
 
-	
 	public Tablero(int tamanioMatriz) {
 		this.tamanio = tamanioMatriz;
 		this.fichas = new Ficha[tamanioMatriz][tamanioMatriz];
@@ -43,18 +40,61 @@ public class Tablero {
 	            break;
 	    }
 	}
+	private void moverDerecha() {
+		if (bordeDerechoVacio())
+			moverFilasALaDerecha();
+		else {
+			if (hayMovimientoALaDerecha()) {
+				moverFilasALaDerecha();
+				fichaRandomIzquierda();
+			}
+		}
+	}
+
+	private void moverIzquierda() {
+		if (bordeIzquierdoVacio())
+			subrutinaIzquierda();
+		else {
+			if (hayMovimientoALaIzquierda()) {
+				subrutinaIzquierda();
+				fichaRandomDerecha();
+			}
+		}
+	}
 	
-	public boolean bordeIzquierdoVacio() {
+	private void moverAbajo() {
+		if (bordeAbajoVacio())
+			subrutinaAbajo();
+		else {
+			if (hayMovimientoHaciaAbajo()) {
+				subrutinaAbajo();
+				fichaRandomArriba();
+			}
+		}
+	}
+	
+	private void moverArriba() {
+		if (bordeArribaVacio())
+			subrutinaArriba();
+		else {
+			if (hayMovimientoHaciaArriba()) {
+				subrutinaArriba();
+				fichaRandomAbajo();
+			}
+		}
+	}
+	
+	private boolean bordeDerechoVacio() {
 		for (int fila = 0; fila < tamanio; fila++) {
-			if (fichas[fila][0] != null)
+			if (fichas[fila][tamanio - 1] != null)
 				return false;
 		}
 		return true;
 	}
-
-	public boolean bordeAbajoVacio() {
-		for (int col = 0; col < tamanio; col++) {
-			if (fichas[tamanio - 1][col] != null)
+	
+	public boolean bordeIzquierdoVacio() {
+		for (int fila = 0; fila < tamanio; fila++) {
+			if (fichas[fila][0] != null)
 				return false;
 		}
 		return true;
@@ -66,18 +106,18 @@ public class Tablero {
 				return false;
 		}
 		return true;
+	}	
+	
+	public boolean bordeAbajoVacio() {
+		for (int col = 0; col < tamanio; col++) {
+			if (fichas[tamanio - 1][col] != null)
+				return false;
+		}
+		return true;
 	}
 
 	public int getProximoValorFicha() {
 		return proximoValorFicha;
-	}
-	
-	public void generarFichaEnLugarEncontrado(int fila, int col) {
-		int valor = proximoValorFicha;
-		proximoValorFicha = generarValorRandom();
-		Ficha fichaRandom = new Ficha(valor);
-		fichas[fila][col] = fichaRandom;
-		contadorFichas++;
 	}
 
 	public Ficha getFicha(int fila, int col) {
@@ -97,25 +137,6 @@ public class Tablero {
 		return hayMovimientoALaDerecha() || hayMovimientoALaIzquierda() ||
 				hayMovimientoHaciaArriba() || hayMovimientoHaciaAbajo();
 	}
-
-	public int calcularPuntaje() {
-	    int cont = 0;
-	    int valorMaxFicha = 0;
-
-	    for (int fila = 0; fila < tamanio; fila++) {
-	        for (int col = 0; col < tamanio; col++) {
-	            Ficha f = fichas[fila][col];
-	            if (f != null && f.getValor() != 1 && f.getValor() != 2) {
-	                cont += puntajeDeFicha(f.getValor());
-
-	                if (f.getValor() > valorMaxFicha) 
-	                	valorMaxFicha = f.getValor();
-	            }
-	        }
-	    }
-	    this.valorMaximo = valorMaxFicha;
-	    return cont;
-	}
     
     public String movimientoSugerido() {
     	List<String> posibles = new ArrayList<>();
@@ -133,85 +154,7 @@ public class Tablero {
     		}
     }
     
-    public int getValorMaximo() {
-    	return valorMaximo;
-    }
-    
-    private void subrutinaIzquierda() {
-		invertirFilas();
-		moverFilasALaDerecha();
-		invertirFilas();
-	}
-   
-    private void subrutinaAbajo() {
-		columnaAFila();
-		moverFilasALaDerecha();
-		columnaAFila();
-	}
-    
-    private void subrutinaArriba() {
-		columnaAFila();
-		subrutinaIzquierda();
-		columnaAFila();
-	}
-    
-    private void moverFilasALaDerecha() {
-		for (int fila = 0; fila < tamanio; fila++) {
-			moverFilaDerecha(fila);
-		}
-	}
-
-	private void moverFilaDerecha(int fila) {
-		boolean yaSeFusiono = false;
-
-		for (int col = tamanio - 2; col >= 0; col--) {
-			Ficha actual = fichas[fila][col];
-
-			if (actual != null) {
-				int destino = col + 1;
-				Ficha vecina = fichas[fila][destino];
-
-				if (vecina == null) {
-					fichas[fila][destino] = actual;
-					fichas[fila][col] = null;
-
-				} else if (!yaSeFusiono && actual.puedeFusionarseCon(vecina)) {
-					fichas[fila][destino] = actual.fusionarCon(vecina);
-					fichas[fila][col] = null;
-					yaSeFusiono = true;
-					contadorFichas--;
-					
-					ReproductorMusica.reproducirEfecto("/audio/punch.wav");
-				}
-			}
-		}
-	}
-
-	private void invertirFilas() {
-		for (int fila = 0; fila < tamanio; fila++) {
-			for (int col = 0; col < tamanio / 2; col++) {
-				Ficha temp = fichas[fila][col];
-				fichas[fila][col] = fichas[fila][tamanio - 1 - col];
-				fichas[fila][tamanio - 1 - col] = temp;
-			}
-		}
-	}
-
-	private void columnaAFila() {
-		Ficha[][] nueva = new Ficha[tamanio][tamanio];
-		for (int fila = 0; fila < tamanio; fila++) {
-			for (int col = 0; col < tamanio; col++) {
-				nueva[col][fila] = fichas[fila][col];
-			}
-		}
-		fichas = nueva;
-	}
-
-	private boolean puedenMoverse (Ficha a, Ficha b) {
-		return a==null || b==null || a.puedeFusionarseCon(b);
-	}
-	
-	private boolean hayMovimientoALaDerecha() {
+    private boolean hayMovimientoALaDerecha() {
 		for (int fila = 0; fila < tamanio; fila++) {
 			for (int col = 0; col < tamanio-1; col++) {
 				
@@ -247,13 +190,79 @@ public class Tablero {
 		
 		return hayMovimiento;
 	}
-	
-	private boolean bordeDerechoVacio() {
+    
+    private void moverFilasALaDerecha() {
 		for (int fila = 0; fila < tamanio; fila++) {
-			if (fichas[fila][tamanio - 1] != null)
-				return false;
+			moverFilaDerecha(fila);
 		}
-		return true;
+	}
+
+	private void moverFilaDerecha(int fila) {
+		boolean yaSeFusiono = false;
+
+		for (int col = tamanio - 2; col >= 0; col--) {
+			Ficha actual = fichas[fila][col];
+
+			if (actual != null) {
+				int destino = col + 1;
+				Ficha vecina = fichas[fila][destino];
+
+				if (vecina == null) {
+					fichas[fila][destino] = actual;
+					fichas[fila][col] = null;
+
+				} else if (!yaSeFusiono && actual.puedeFusionarseCon(vecina)) {
+					fichas[fila][destino] = actual.fusionarCon(vecina);
+					fichas[fila][col] = null;
+					yaSeFusiono = true;
+					contadorFichas--;
+					
+					ReproductorMusica.reproducirEfecto("/audio/punch.wav");
+				}
+			}
+		}
+	}
+	
+    private void subrutinaIzquierda() {
+		invertirFilas();
+		moverFilasALaDerecha();
+		invertirFilas();
+	}
+   
+    private void subrutinaAbajo() {
+		columnaAFila();
+		moverFilasALaDerecha();
+		columnaAFila();
+	}
+    
+    private void subrutinaArriba() {
+		columnaAFila();
+		subrutinaIzquierda();
+		columnaAFila();
+	}
+
+	private void invertirFilas() {
+		for (int fila = 0; fila < tamanio; fila++) {
+			for (int col = 0; col < tamanio / 2; col++) {
+				Ficha temp = fichas[fila][col];
+				fichas[fila][col] = fichas[fila][tamanio - 1 - col];
+				fichas[fila][tamanio - 1 - col] = temp;
+			}
+		}
+	}
+
+	private void columnaAFila() {
+		Ficha[][] nueva = new Ficha[tamanio][tamanio];
+		for (int fila = 0; fila < tamanio; fila++) {
+			for (int col = 0; col < tamanio; col++) {
+				nueva[col][fila] = fichas[fila][col];
+			}
+		}
+		fichas = nueva;
+	}
+
+	private boolean puedenMoverse (Ficha a, Ficha b) {
+		return a==null || b==null || a.puedeFusionarseCon(b);
 	}
 	
 	private void fichaRandomIzquierda(){		
@@ -295,61 +304,20 @@ public class Tablero {
 		return posicion;
 	}
 	
+	public void generarFichaEnLugarEncontrado(int fila, int col) {
+		int valor = proximoValorFicha;
+		proximoValorFicha = generarValorRandom();
+		Ficha fichaRandom = new Ficha(valor);
+		fichas[fila][col] = fichaRandom;
+		contadorFichas++;
+	}
+
 	private int generarValorRandom() {
 		valorRandom = new Random();
 		int valor = valorRandom.nextInt(1, 4);
 		
 		return valor;
 	}
-	
-	private int puntajeDeFicha(int valor) {     
-        int puntajeAcumulado = 3;
-        int fichaSimulada = 3;
-        
-        while (fichaSimulada < valor) {
-            fichaSimulada = fichaSimulada * 2;
-            puntajeAcumulado = puntajeAcumulado * 3;
-        }
-        return puntajeAcumulado;
-    }
-	
-	private void moverDerecha() {
-		if (bordeDerechoVacio()) moverFilasALaDerecha();
-		else {
-			if (hayMovimientoALaDerecha()) {
-				moverFilasALaDerecha();
-				fichaRandomIzquierda();
-			}
-		}
-	}
-
-	private void moverIzquierda() {
-		if (bordeIzquierdoVacio()) subrutinaIzquierda();
-		else {
-			if (hayMovimientoALaIzquierda()) {
-				subrutinaIzquierda();
-				fichaRandomDerecha();
-			}
-		}
-	}
-	
-	private void moverAbajo() {
-		if (bordeAbajoVacio()) subrutinaAbajo();
-		else {
-			if (hayMovimientoHaciaAbajo()) {
-				subrutinaAbajo();
-				fichaRandomArriba();
-			}
-		}
-	}
-	
-	private void moverArriba() {
-		if (bordeArribaVacio()) subrutinaArriba();
-		else {
-			if (hayMovimientoHaciaArriba()) {
-				subrutinaArriba();
-				fichaRandomAbajo();
-			}
-		}
-	}
 }
+	
+
