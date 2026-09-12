@@ -27,23 +27,10 @@ public class Juego {
     }
 	
 	
-    public void mover(int codigoTecla) {
+    public void mover(Direccion direccion) {
     	
         if (esPartidaAunValida()) {
-            switch (codigoTecla) {
-                case KeyEvent.VK_RIGHT:
-                    tablero.moverDerecha();
-                    break;
-                case KeyEvent.VK_LEFT:
-                    tablero.moverIzquierda();
-                    break;
-                case KeyEvent.VK_UP:
-                    tablero.moverArriba();
-                    break;
-                case KeyEvent.VK_DOWN:
-                    tablero.moverAbajo();
-                    break;
-            }
+            tablero.mover(direccion);
         } else {
             configurarPartidaTerminada();
         }

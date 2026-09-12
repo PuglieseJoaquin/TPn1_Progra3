@@ -1,7 +1,7 @@
 package presentador;
 
 import java.awt.event.KeyEvent;
-
+import modelo.Direccion;
 import modelo.Juego;
 import vista.GestorPantallas;
 import vista.JuegoVista;
@@ -26,8 +26,10 @@ public class JuegoPresentador {
 	
 	
 	public void manejarEventoTeclaDeMovimiento(int codigoTecla) {
-		if (esTeclaValida(codigoTecla)) {
-			juego.mover(codigoTecla);
+		Direccion direccion = traducirTecla(codigoTecla);
+		
+		if (direccion != null) {
+			juego.mover(direccion);
 			actualizarVista();
 		}	
 		
@@ -37,18 +39,19 @@ public class JuegoPresentador {
 		}
 	}
 	
-	
-	public boolean esTeclaValida(int codigoTecla) {
-		return codigoTecla == KeyEvent.VK_RIGHT ||
-	           codigoTecla == KeyEvent.VK_LEFT ||
-	           codigoTecla == KeyEvent.VK_UP ||
-	           codigoTecla == KeyEvent.VK_DOWN;
-	}
-
-	
 	public void actualizarVista() {
 		juegoVista.mostrarTablero(juego.getMatrizValoresDeFichas());
 		juegoVista.mostrarProximaFicha(juego.getProximoValorFicha());
 		juegoVista.mostrarMovimientoSugerido(juego.getMovimientoSugerido());
+	}
+	
+	private Direccion traducirTecla(int codigoTecla) {
+	    switch (codigoTecla) {
+	        case KeyEvent.VK_RIGHT: return Direccion.DERECHA;
+	        case KeyEvent.VK_LEFT:  return Direccion.IZQUIERDA;
+	        case KeyEvent.VK_UP:    return Direccion.ARRIBA;
+	        case KeyEvent.VK_DOWN:  return Direccion.ABAJO;
+	        default: return null;
+	    }
 	}
 }

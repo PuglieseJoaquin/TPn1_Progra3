@@ -3,7 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+import modelo.Direccion;
 
 public class Tablero {
 
@@ -27,50 +27,22 @@ public class Tablero {
 		this.movimientoSugerido = movimientoSugerido();
 	}
 
-	
-	public void moverDerecha() {
-		if (bordeDerechoVacio()) moverFilasALaDerecha();
-		else {
-			if (hayMovimientoALaDerecha()) {
-				moverFilasALaDerecha();
-				fichaRandomIzquierda();
-			}
-		}
+	public void mover(Direccion direccion) {
+	    switch (direccion) {
+	        case DERECHA:
+	            moverDerecha();
+	            break;
+	        case IZQUIERDA:
+	            moverIzquierda();
+	            break;
+	        case ABAJO:
+	            moverAbajo();
+	            break;
+	        case ARRIBA:
+	            moverArriba();
+	            break;
+	    }
 	}
-
-	
-	public void moverIzquierda() {
-		if (bordeIzquierdoVacio()) subrutinaIzquierda();
-		else {
-			if (hayMovimientoALaIzquierda()) {
-				subrutinaIzquierda();
-				fichaRandomDerecha();
-			}
-		}
-	}
-
-
-	public void moverAbajo() {
-		if (bordeAbajoVacio()) subrutinaAbajo();
-		else {
-			if (hayMovimientoHaciaAbajo()) {
-				subrutinaAbajo();
-				fichaRandomArriba();
-			}
-		}
-	}
-	
-	
-	public void moverArriba() {
-		if (bordeArribaVacio()) subrutinaArriba();
-		else {
-			if (hayMovimientoHaciaArriba()) {
-				subrutinaArriba();
-				fichaRandomAbajo();
-			}
-		}
-	}
-
 	
 	public boolean bordeIzquierdoVacio() {
 		for (int fila = 0; fila < tamanio; fila++) {
@@ -80,7 +52,6 @@ public class Tablero {
 		return true;
 	}
 
-	
 	public boolean bordeAbajoVacio() {
 		for (int col = 0; col < tamanio; col++) {
 			if (fichas[tamanio - 1][col] != null)
@@ -88,8 +59,7 @@ public class Tablero {
 		}
 		return true;
 	}
-	
-	
+
 	public boolean bordeArribaVacio() {
 		for (int col = 0; col < tamanio; col++) {
 			if (fichas[0][col] != null)
@@ -98,11 +68,9 @@ public class Tablero {
 		return true;
 	}
 
-	
 	public int getProximoValorFicha() {
 		return proximoValorFicha;
 	}
-	
 	
 	public void generarFichaEnLugarEncontrado(int fila, int col) {
 		int valor = proximoValorFicha;
@@ -112,29 +80,24 @@ public class Tablero {
 		contadorFichas++;
 	}
 
-	
 	public Ficha getFicha(int fila, int col) {
 		return fichas[fila][col];
 	}
 
-	
 	public int getTamanio() {
 		return tamanio;
 	}
 
-	
 	public boolean estaCompleto() {
 		int cantidadEspacios = tamanio * tamanio;
 		return (contadorFichas == cantidadEspacios);
 	}
 
-	
 	public boolean hayMovimientosPosibles() {
 		return hayMovimientoALaDerecha() || hayMovimientoALaIzquierda() ||
 				hayMovimientoHaciaArriba() || hayMovimientoHaciaAbajo();
 	}
 
-	
 	public int calcularPuntaje() {
 	    int cont = 0;
 	    int valorMaxFicha = 0;
@@ -154,7 +117,6 @@ public class Tablero {
 	    return cont;
 	}
     
-    
     public String movimientoSugerido() {
     	List<String> posibles = new ArrayList<>();
 
@@ -171,11 +133,9 @@ public class Tablero {
     		}
     }
     
-    
     public int getValorMaximo() {
     	return valorMaximo;
     }
-    
     
     private void subrutinaIzquierda() {
 		invertirFilas();
@@ -183,13 +143,11 @@ public class Tablero {
 		invertirFilas();
 	}
    
-    
     private void subrutinaAbajo() {
 		columnaAFila();
 		moverFilasALaDerecha();
 		columnaAFila();
 	}
-    
     
     private void subrutinaArriba() {
 		columnaAFila();
@@ -197,14 +155,12 @@ public class Tablero {
 		columnaAFila();
 	}
     
-    
     private void moverFilasALaDerecha() {
 		for (int fila = 0; fila < tamanio; fila++) {
 			moverFilaDerecha(fila);
 		}
 	}
 
-	
 	private void moverFilaDerecha(int fila) {
 		boolean yaSeFusiono = false;
 
@@ -231,7 +187,6 @@ public class Tablero {
 		}
 	}
 
-	
 	private void invertirFilas() {
 		for (int fila = 0; fila < tamanio; fila++) {
 			for (int col = 0; col < tamanio / 2; col++) {
@@ -242,7 +197,6 @@ public class Tablero {
 		}
 	}
 
-	
 	private void columnaAFila() {
 		Ficha[][] nueva = new Ficha[tamanio][tamanio];
 		for (int fila = 0; fila < tamanio; fila++) {
@@ -253,11 +207,9 @@ public class Tablero {
 		fichas = nueva;
 	}
 
-	
 	private boolean puedenMoverse (Ficha a, Ficha b) {
 		return a==null || b==null || a.puedeFusionarseCon(b);
 	}
-	
 	
 	private boolean hayMovimientoALaDerecha() {
 		for (int fila = 0; fila < tamanio; fila++) {
@@ -272,7 +224,6 @@ public class Tablero {
 		return false;
 	}
 
-	
 	private boolean hayMovimientoALaIzquierda() {
 		invertirFilas();
 		boolean hayMovimiento = hayMovimientoALaDerecha();
@@ -281,7 +232,6 @@ public class Tablero {
 		return hayMovimiento;
 	}
 
-	
 	private boolean hayMovimientoHaciaAbajo() {
 		columnaAFila();
 		boolean hayMovimiento = hayMovimientoALaDerecha();
@@ -290,7 +240,6 @@ public class Tablero {
 		return hayMovimiento;
 	}
 
-	
 	private boolean hayMovimientoHaciaArriba() {
 		columnaAFila();
 		boolean hayMovimiento = hayMovimientoALaIzquierda();
@@ -298,7 +247,6 @@ public class Tablero {
 		
 		return hayMovimiento;
 	}
-	
 	
 	private boolean bordeDerechoVacio() {
 		for (int fila = 0; fila < tamanio; fila++) {
@@ -308,7 +256,6 @@ public class Tablero {
 		return true;
 	}
 	
-	
 	private void fichaRandomIzquierda(){		
 		int posicion = generarPosicionRandom();
 		
@@ -316,7 +263,6 @@ public class Tablero {
 			generarFichaEnLugarEncontrado(posicion, 0);
 		else fichaRandomIzquierda();
 	}
-	
 	
 	private void fichaRandomDerecha(){
 		int posicion = generarPosicionRandom();
@@ -326,7 +272,6 @@ public class Tablero {
 		else fichaRandomDerecha();
 	}
 	
-	
 	private void fichaRandomArriba(){
 		int posicion = generarPosicionRandom();
 		
@@ -334,7 +279,6 @@ public class Tablero {
 			generarFichaEnLugarEncontrado(0, posicion);
 		else fichaRandomArriba();
 	}
-	
 	
 	private void fichaRandomAbajo(){	
 		int posicion = generarPosicionRandom();
@@ -344,7 +288,6 @@ public class Tablero {
 		else fichaRandomAbajo();		
 	}
 	
-	
 	private int generarPosicionRandom() {
 		posicionRandom = new Random();
 		int posicion = posicionRandom.nextInt(tamanio);
@@ -352,14 +295,12 @@ public class Tablero {
 		return posicion;
 	}
 	
-	
 	private int generarValorRandom() {
 		valorRandom = new Random();
 		int valor = valorRandom.nextInt(1, 4);
 		
 		return valor;
 	}
-	
 	
 	private int puntajeDeFicha(int valor) {     
         int puntajeAcumulado = 3;
@@ -371,4 +312,44 @@ public class Tablero {
         }
         return puntajeAcumulado;
     }
+	
+	private void moverDerecha() {
+		if (bordeDerechoVacio()) moverFilasALaDerecha();
+		else {
+			if (hayMovimientoALaDerecha()) {
+				moverFilasALaDerecha();
+				fichaRandomIzquierda();
+			}
+		}
+	}
+
+	private void moverIzquierda() {
+		if (bordeIzquierdoVacio()) subrutinaIzquierda();
+		else {
+			if (hayMovimientoALaIzquierda()) {
+				subrutinaIzquierda();
+				fichaRandomDerecha();
+			}
+		}
+	}
+	
+	private void moverAbajo() {
+		if (bordeAbajoVacio()) subrutinaAbajo();
+		else {
+			if (hayMovimientoHaciaAbajo()) {
+				subrutinaAbajo();
+				fichaRandomArriba();
+			}
+		}
+	}
+	
+	private void moverArriba() {
+		if (bordeArribaVacio()) subrutinaArriba();
+		else {
+			if (hayMovimientoHaciaArriba()) {
+				subrutinaArriba();
+				fichaRandomAbajo();
+			}
+		}
+	}
 }
